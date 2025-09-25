@@ -13,8 +13,6 @@ import java.time.Instant;
 import java.util.Map;
 import java.util.Objects;
 
-import static java.lang.String.valueOf;
-
 @ControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)

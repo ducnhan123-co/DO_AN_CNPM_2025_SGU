@@ -4,7 +4,6 @@ import com.smart_school_bus.SSB.dto.request.BusCreationRequest;
 import com.smart_school_bus.SSB.dto.request.BusUpdateRequest;
 import com.smart_school_bus.SSB.dto.response.ApiResponse;
 import com.smart_school_bus.SSB.dto.response.BusResponse;
-import com.smart_school_bus.SSB.entity.Bus;
 import com.smart_school_bus.SSB.service.BusService;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;

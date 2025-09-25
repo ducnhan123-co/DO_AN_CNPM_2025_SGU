@@ -30,9 +30,7 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
-import java.util.StringJoiner;
-import java.util.UUID;
+import java.util.*;
 
 import static java.rmi.server.LogStream.log;
 
@@ -173,8 +171,8 @@ public class AuthService {
     private SignedJWT verifyToken(String token, boolean isRefresh) throws ParseException, JOSEException {
         JWSVerifier verifier = new MACVerifier(SIGNER_KEY);
         SignedJWT signedJWT = SignedJWT.parse(token);
-
         boolean verified = signedJWT.verify(verifier);
+
         Date expirationTime = isRefresh
                 ? new Date(signedJWT.getJWTClaimsSet().getIssueTime().toInstant().plus(REFRESHABLE_UTIL, ChronoUnit.SECONDS).toEpochMilli())
                 : signedJWT.getJWTClaimsSet().getExpirationTime();

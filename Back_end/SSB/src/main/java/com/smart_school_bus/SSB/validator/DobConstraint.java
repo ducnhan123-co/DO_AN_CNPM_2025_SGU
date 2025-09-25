@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = {DobValidator.class})
 public @interface DobConstraint {
     int min();
-    String message() default "age must be at least 16 years";
+    String message() default "INVALID_DOB";
 
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
