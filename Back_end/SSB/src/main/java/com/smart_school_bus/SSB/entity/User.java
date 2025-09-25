@@ -53,6 +53,9 @@ public class User {
     @Builder.Default
     boolean activate = true;
 
-    @Column(name = "gender")
+    @Column(name = "gender" )
     String gender;
+
+    @Column(name = "image_url")
+    String imageURl;
 }

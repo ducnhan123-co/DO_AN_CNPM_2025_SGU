@@ -29,6 +29,6 @@ public class Bus {
     @Builder.Default
     boolean available = true;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", updatable = false, nullable = false)
     LocalDate createdAt ;
 }

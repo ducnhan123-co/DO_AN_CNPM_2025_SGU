@@ -15,11 +15,16 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -35,17 +40,22 @@ public class UserService {
     PasswordEncoder passwordEncoder;
 
     public UserResponse createUser(UserCreationRequest request) {
+        Set<Role> roles = new HashSet<>();
+        roleRepository.findById(PredefinedRoles.USER_ROLE).ifPresent(roles::add);
+
         User user = userMapper.toUser(request);
 
         user.setCreatedAt(LocalDate.now());
         user.setUserName(user.getPhoneNumber());
-
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        Set<Role> roles = new HashSet<>();
-        roleRepository.findById(PredefinedRoles.USER_ROLE).ifPresent(roles::add);
-
         user.setRoles(roles);
+
+        try {
+            userRepository.save(user);
+        } catch (DataIntegrityViolationException exception) {
+            if (exception.getMessage().contains("Duplicate entry"))
+                throw new AppException(ErrorCode.USER_EXISTED);
+        }
 
         return userMapper.toResponse(userRepository.save(user));
     }

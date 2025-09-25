@@ -11,9 +11,11 @@ import com.smart_school_bus.SSB.repository.BusRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -26,6 +28,14 @@ public class BusService {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public BusResponse createBus(BusCreationRequest request) {
         Bus bus = busMapper.toBus(request);
+        bus.setCreatedAt(LocalDate.now());
+
+        try {
+            busRepository.save(bus);
+        } catch (DataIntegrityViolationException exception) {
+            if (exception.getMessage().contains("Duplicate entry"))
+                throw new AppException(ErrorCode.BUS_EXISTED);
+        }
 
         return busMapper.toResponse(busRepository.save(bus)) ;
     }
