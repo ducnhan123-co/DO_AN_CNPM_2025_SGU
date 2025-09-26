@@ -35,6 +35,9 @@ public enum ErrorCode {
     STUDENT_NOT_FOUND(1021, "Student not found", HttpStatus.NOT_FOUND),
     BUS_EXISTED(1022, "Bus existed", HttpStatus.NOT_FOUND),
     USER_EXISTED(1023, "User existed", HttpStatus.NOT_FOUND),
+    INVALID_TO(1024, "Invalid recipient email", HttpStatus.BAD_REQUEST),
+    INVALID_SUBJECT(1025, "Invalid subject", HttpStatus.BAD_REQUEST),
+    INVALID_BODY(1026, "Invalid body", HttpStatus.BAD_REQUEST),
     ;
     int code;
     String message;

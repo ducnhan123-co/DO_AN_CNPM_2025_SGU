@@ -28,12 +28,8 @@ public class StudentService {
         Student student = studentMapper.toStudent(request);
         student.setCreatedAt(LocalDate.now());
 
-        try {
-            studentRepository.save(student);
-        } catch (DataIntegrityViolationException exception) {
-            if (exception.getMessage().contains("Duplicate entry"))
-                throw new AppException(ErrorCode.STUDENT_EXISTED);
-        }
+        if (studentRepository.existsById(request.getId()))
+            throw new AppException(ErrorCode.STUDENT_EXISTED);
 
         return studentMapper.toResponse(student);
     }
