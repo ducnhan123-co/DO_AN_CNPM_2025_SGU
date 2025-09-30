@@ -35,29 +35,8 @@ public class UserService {
     RoleRepository roleRepository;
     PasswordEncoder passwordEncoder;
 
-    public UserResponse createUser(UserCreationRequest request) {
-        Set<Role> roles = new HashSet<>();
-        roleRepository.findById(PredefinedRoles.USER_ROLE).ifPresent(roles::add);
-
-        User user = userMapper.toUser(request);
-
-        user.setCreatedAt(LocalDate.now());
-        user.setUserName(user.getPhoneNumber());
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(roles);
-
-        try {
-            userRepository.save(user);
-        } catch (DataIntegrityViolationException exception) {
-            if (exception.getMessage().contains("Duplicate entry"))
-                throw new AppException(ErrorCode.USER_EXISTED);
-        }
-
-        return userMapper.toResponse(userRepository.save(user));
-    }
-
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public UserResponse createUser_admin(UserCreationRequest request) {
+    public UserResponse createUser(UserCreationRequest request) {
         User user = userMapper.toUser(request);
 
         user.setCreatedAt(LocalDate.now());

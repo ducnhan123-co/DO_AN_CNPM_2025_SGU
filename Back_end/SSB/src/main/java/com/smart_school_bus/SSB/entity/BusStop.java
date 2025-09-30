@@ -4,9 +4,10 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Table(name = "bus")
+@Table(name = "bus_stop")
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
@@ -14,22 +15,21 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Bus {
+public class BusStop {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "bus_id", unique = true, nullable = false, updatable = false)
+    @Column(name = "bus_stop_id")
     String id;
 
-    @Column(unique = true, nullable = false, columnDefinition = "VARCHAR(255) COLLATE utf8_general_ci")
-    String licensePlate;
+    @Column(nullable = false, unique = true)
+    String address;
 
-    @Column(nullable = false)
-    int capacity;
+    @Column(nullable = false, precision = 9, scale = 3)
+    BigDecimal latitude;
 
-    @Column(nullable = false)
-    @Builder.Default
-    boolean available = true;
+    @Column(nullable = false, precision = 9, scale = 3)
+    BigDecimal longitude;
 
     @Column(name = "created_at", updatable = false, nullable = false)
-    LocalDate createdAt ;
+    LocalDate createdAt;
 }

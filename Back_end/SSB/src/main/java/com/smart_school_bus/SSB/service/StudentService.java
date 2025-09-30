@@ -3,10 +3,12 @@ package com.smart_school_bus.SSB.service;
 import com.smart_school_bus.SSB.dto.request.StudentCreationRequest;
 import com.smart_school_bus.SSB.dto.request.StudentUpdateRequest;
 import com.smart_school_bus.SSB.dto.response.StudentResponse;
+import com.smart_school_bus.SSB.entity.Parent;
 import com.smart_school_bus.SSB.entity.Student;
 import com.smart_school_bus.SSB.exception.AppException;
 import com.smart_school_bus.SSB.exception.ErrorCode;
 import com.smart_school_bus.SSB.mapper.StudentMapper;
+import com.smart_school_bus.SSB.repository.ParentRepository;
 import com.smart_school_bus.SSB.repository.StudentRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,7 @@ import java.util.List;
 public class StudentService {
     StudentRepository studentRepository;
     StudentMapper studentMapper;
+    ParentRepository parentRepository;
 
     public StudentResponse createStudent(StudentCreationRequest request) {
         Student student = studentMapper.toStudent(request);
@@ -31,7 +34,11 @@ public class StudentService {
         if (studentRepository.existsById(request.getId()))
             throw new AppException(ErrorCode.STUDENT_EXISTED);
 
-        return studentMapper.toResponse(student);
+        Parent parent = parentRepository.findById(request.getParentId())
+                .orElseThrow(() -> new AppException(ErrorCode.PARENT_NOT_FOUND));
+
+        student.setParent(parent);
+        return studentMapper.toResponse(studentRepository.save(student));
     }
 
     public List<StudentResponse> getStudents() {
