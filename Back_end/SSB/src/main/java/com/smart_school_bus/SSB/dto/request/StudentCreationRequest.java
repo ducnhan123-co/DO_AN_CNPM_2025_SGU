@@ -2,6 +2,7 @@ package com.smart_school_bus.SSB.dto.request;
 
 import com.smart_school_bus.SSB.validator.DobConstraint;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import lombok.*;
@@ -34,5 +35,10 @@ public class StudentCreationRequest {
     @NotBlank(message = "INVALID_CLASS")
     String classRoom;
 
+    @NotEmpty(message = "INVALID_PARENT_ID")
+    @NotNull(message = "INVALID_PARENT_ID")
+    String parentId;
+
+    @NotBlank(message = "INVALID_IMAGE_URL")
     String imageUrl;
 }

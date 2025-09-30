@@ -31,5 +31,9 @@ public class StudentUpdateRequest {
     @NotBlank(message = "INVALID_CLASS")
     String classRoom;
 
+    @NotBlank(message = "INVALID_PARENT_ID")
+    String parentId;
+
+    @NotBlank(message = "INVALID_IMAGE_URL")
     String imageUrl;
 }

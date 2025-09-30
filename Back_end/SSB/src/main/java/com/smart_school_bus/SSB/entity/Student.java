@@ -8,11 +8,12 @@ import lombok.experimental.FieldDefaults;
 import java.time.LocalDate;
 
 @Entity
-@Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Student {
     @Id
     @Column(name = "student_id", nullable = false, updatable = false, unique = true, columnDefinition = "VARCHAR(255) COLLATE utf8_general_ci")
@@ -39,5 +40,9 @@ public class Student {
 
     @Column(name = "created_at", updatable = false, nullable = false)
     LocalDate createdAt ;
+
+    @ManyToOne
+    @JoinColumn(name = "parent_id", nullable = false)
+    Parent parent;
 }
     

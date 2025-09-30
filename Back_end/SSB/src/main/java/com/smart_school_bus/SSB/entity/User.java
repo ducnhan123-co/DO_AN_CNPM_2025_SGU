@@ -9,7 +9,8 @@ import java.util.Set;
 
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -46,7 +47,7 @@ public class User {
     @Column(name = "created_at", nullable = false, updatable = false)
     LocalDate createdAt;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     Set<Role> roles;
 
     @Column(name = "isActivated", nullable = false)
@@ -58,4 +59,10 @@ public class User {
 
     @Column(name = "image_url")
     String imageURl;
+
+    @OneToOne(mappedBy = "user")
+    Parent parent;
+
+    @OneToOne(mappedBy = "user")
+    Driver driver;
 }
