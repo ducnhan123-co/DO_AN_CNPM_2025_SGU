@@ -24,11 +24,7 @@ public class UserController {
 
     @PostMapping
     public ApiResponse createUser(@Valid @RequestBody UserCreationRequest request) {
-        UserResponse data = null;
-        if (Objects.isNull(request.getRoleNames()) || request.getRoleNames().isEmpty())
-            data = userService.createUser(request);
-        else
-            data = userService.createUser_admin(request);
+        UserResponse data = userService.createUser(request);
 
         ApiResponse response = ApiResponse.<UserResponse>builder()
                 .success(true)
@@ -36,21 +32,6 @@ public class UserController {
                 .timestamp(Instant.now())
                 .data(data)
                 .message("Create user successfully")
-                .build();
-
-        return response;
-    }
-
-    @GetMapping("/{id}")
-    public ApiResponse getUser(@Valid@PathVariable("id") String id) {
-        UserResponse data = userService.getUser(id);
-
-        ApiResponse response = ApiResponse.<UserResponse>builder()
-                .success(true)
-                .status(1000)
-                .timestamp(Instant.now())
-                .data(data)
-                .message("Get user successfully")
                 .build();
 
         return response;
@@ -71,10 +52,25 @@ public class UserController {
         return response;
     }
 
+    @GetMapping("/{id}")
+    public ApiResponse getUser(@Valid@PathVariable("id") String id) {
+        UserResponse data = userService.getUser(id);
+
+        ApiResponse response = ApiResponse.<UserResponse>builder()
+                .success(true)
+                .status(1000)
+                .timestamp(Instant.now())
+                .data(data)
+                .message("Get user successfully")
+                .build();
+
+        return response;
+    }
+
     @PutMapping("/{id}")
     public ApiResponse updateUser(@PathVariable String id,@Valid @RequestBody UserUpdateRequest request) {
         UserResponse data;
-        if ((request.getRoleNames().isEmpty() || Objects.isNull(request.getRoleNames())) && Objects.isNull(request.isActive()))
+        if (request.getRoleNames().isEmpty())
             data = userService.updateUser(id, request);
         else
             data = userService.updateUser_admin(id, request);
@@ -93,7 +89,7 @@ public class UserController {
     @DeleteMapping("/{id}")
     public ApiResponse deleteUser(@PathVariable String id) {
         userService.deleteUser(id);
-        ApiResponse response = ApiResponse.<UserResponse>builder()
+        ApiResponse response = ApiResponse.builder()
                 .success(true)
                 .status(1000)
                 .timestamp(Instant.now())
