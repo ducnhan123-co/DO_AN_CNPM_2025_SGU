@@ -72,11 +72,11 @@ public class ApplicationInit {
                 permissionList.add(updateUser);
                 permissionList.add(deleteUser);
 
-                permissionList.forEach(permissionRepository::save);
-
 //                ROLE
                 Set<Permission> adminRolePermissions = new HashSet<Permission>();
                 Set<Permission> userRolePermissions = new HashSet<Permission>();
+                Set<Permission> driverRolePermissions = new HashSet<Permission>();
+                Set<Permission> parentRolePermissions = new HashSet<Permission>();
 
                 permissionList.forEach(adminRolePermissions::add);
 
@@ -95,25 +95,31 @@ public class ApplicationInit {
                 Role driverRole = Role.builder()
                         .name(PredefinedRoles.DRIVER_ROLE)
                         .description("Driver role")
-                        .permissions(new HashSet<>())
+                        .permissions(driverRolePermissions)
+                        .build();
+
+                Role parentRole = Role.builder()
+                        .name(PredefinedRoles.PARENT_ROLE)
+                        .description("Parent role")
+                        .permissions(driverRolePermissions)
                         .build();
 
                 roleRepository.save(userRole);
-                roleRepository.save(adminRole);
                 roleRepository.save(driverRole);
+                roleRepository.save(parentRole);
 
 //                USER_ADMIN
                 Set<Role> roles = new HashSet<Role>();
                 roles.add(adminRole);
 
-                User user = User.builder()
+                User admin = User.builder()
                         .userName(ADMIN_USER_NAME)
                         .password(passwordEncoder.encode(ADMIN_PASSWORD))
                         .roles(roles)
                         .createdAt(LocalDate.now())
                         .build();
 
-                userRepository.save(user);
+                userRepository.save(admin);
                 log.info("admin user has been created with default password: admin123, please change it");
             }
             log.info("Application initialization completed .....");
