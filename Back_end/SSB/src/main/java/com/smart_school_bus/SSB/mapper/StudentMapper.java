@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {ParentMapper.class})
 public interface StudentMapper {
     @Mapping(target = "parent", ignore = true)
     Student toStudent(StudentCreationRequest request);

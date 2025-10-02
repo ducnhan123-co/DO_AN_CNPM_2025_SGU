@@ -1,5 +1,6 @@
 package com.smart_school_bus.SSB.controller;
 
+import com.smart_school_bus.SSB.constant.PredefinedRoles;
 import com.smart_school_bus.SSB.dto.request.ParentCreationRequest;
 import com.smart_school_bus.SSB.dto.request.UserCreationRequest;
 import com.smart_school_bus.SSB.dto.response.ApiResponse;
@@ -14,7 +15,10 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/parent")
@@ -41,6 +45,9 @@ public class ParentController {
 
     @PostMapping("/createUser")
     public ApiResponse createUserParent(@Valid @RequestBody UserCreationRequest request) {
+        Set<String> roleNames = new HashSet<>();
+        roleNames.add(PredefinedRoles.PARENT_ROLE);
+        request.setRoleNames(roleNames);
         UserResponse userResponse = userService.createUser(request);
 
         ParentCreationRequest parentCreationRequest = ParentCreationRequest.builder()

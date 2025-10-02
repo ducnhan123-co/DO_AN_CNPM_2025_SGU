@@ -4,7 +4,7 @@ import com.smart_school_bus.SSB.dto.response.ParentResponse;
 import com.smart_school_bus.SSB.entity.Parent;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring", uses = {UserMapper.class, StudentMapper.class})
+@Mapper(componentModel = "spring", uses = {UserMapper.class})
 public interface ParentMapper {
 
     public ParentResponse toResponse(Parent parent);
