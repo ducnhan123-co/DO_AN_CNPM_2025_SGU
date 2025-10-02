@@ -21,8 +21,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class StudentService {
     StudentRepository studentRepository;
     StudentMapper studentMapper;

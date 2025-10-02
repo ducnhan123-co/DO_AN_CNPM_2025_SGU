@@ -59,7 +59,14 @@ public enum ErrorCode {
     // Driver
     INVALID_DRIVER_LICENSE(1031, "Invalid driver license", HttpStatus.BAD_REQUEST),
     DRIVER_NOT_FOUND(1032, "Driver not found", HttpStatus.NOT_FOUND),
-    DRIVER_EXISTED(1033, "Driver existed", HttpStatus.CONFLICT);
+    DRIVER_EXISTED(1033, "Driver existed", HttpStatus.CONFLICT),
+
+    // Route
+    INVALID_ROUTE_NAME(1034, "Invalid route name", HttpStatus.BAD_REQUEST),
+    INVALID_ROUTE_DISTANCE(1035, "Invalid route distance", HttpStatus.BAD_REQUEST),
+    INVALID_ROUTE_BUSSTOP_IDS(1036, "Invalid route bus stop ids", HttpStatus.BAD_REQUEST),
+    ROUTE_NOT_FOUND(1037, "Route not found", HttpStatus.NOT_FOUND),
+    ROUTE_EXISTED(1038, "Route existed", HttpStatus.CONFLICT);
     ;
     int code;
     String message;
