@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping("/route")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class RoutController {
+public class RouteController {
     RouteService routeService;
 
     @PostMapping
