@@ -21,4 +21,5 @@ public class StudentResponse {
     String address;
     String classRoom;
     String imageUrl;
+    ParentResponse parent;
 }
