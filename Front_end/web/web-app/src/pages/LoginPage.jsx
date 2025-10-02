@@ -1,170 +1,348 @@
-// import React, { useState } from "react";
-
-// const Login = () => {
-//     const [email, setEmail] = useState("");
-//     const [password, setPassword] = useState("");
-//     const [error, setError] = useState("");
-
-//     const handleSubmit = async (e) => {
-//         e.preventDefault();
-//         setError("");
-//         // Replace with your actual login API call
-//         try {
-//             // Example: await api.login({ email, password });
-//             if (email === "" || password === "") {
-//                 setError("Please enter both email and password.");
-//                 return;
-//             }
-//             // Simulate successful login
-//             alert("Login successful!");
-//             // Redirect or update app state here
-//         } catch (err) {
-//             setError("Invalid credentials. Please try again.");
-//         }
-//     };
-
-//     return (
-//         <div style={styles.container}>
-//             <div style={styles.box}>
-//                 <h2 style={styles.title}>Smart School Bus Tracking System</h2>
-//                 <form onSubmit={handleSubmit} style={styles.form}>
-//                     <input
-//                         type="email"
-//                         placeholder="Email"
-//                         value={email}
-//                         onChange={(e) => setEmail(e.target.value)}
-//                         style={styles.input}
-//                         required
-//                     />
-//                     <input
-//                         type="password"
-//                         placeholder="Password"
-//                         value={password}
-//                         onChange={(e) => setPassword(e.target.value)}
-//                         style={styles.input}
-//                         required
-//                     />
-//                     {error && <div style={styles.error}>{error}</div>}
-//                     <button type="submit" style={styles.button}>Login</button>
-//                 </form>
-//             </div>
-//         </div>
-//     );
-// };
-
-// const styles = {
-//     container: {
-//         minHeight: "100vh",
-//         display: "flex",
-//         alignItems: "center",
-//         justifyContent: "center",
-//         background: "#f5f7fa",
-//     },
-//     box: {
-//         padding: "32px",
-//         borderRadius: "8px",
-//         background: "#fff",
-//         boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-//         minWidth: "320px",
-//     },
-//     title: {
-//         marginBottom: "24px",
-//         textAlign: "center",
-//         color: "#2d3e50",
-//     },
-//     form: {
-//         display: "flex",
-//         flexDirection: "column",
-//         gap: "16px",
-//     },
-//     input: {
-//         padding: "10px",
-//         borderRadius: "4px",
-//         border: "1px solid #ccc",
-//         fontSize: "16px",
-//     },
-//     button: {
-//         padding: "10px",
-//         borderRadius: "4px",
-//         border: "none",
-//         background: "#1976d2",
-//         color: "#fff",
-//         fontWeight: "bold",
-//         fontSize: "16px",
-//         cursor: "pointer",
-//     },
-//     error: {
-//         color: "#d32f2f",
-//         fontSize: "14px",
-//         textAlign: "center",
-//     },
-// };
-
-// export default Login;
-
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 function LoginPage() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [remember, setRemember] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Login attempt:', { username, password });
-    // Xử lý logic đăng nhập ở đây
+    // ...existing code...
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md w-96">
-        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Login</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label htmlFor="username" className="block text-gray-700 text-sm font-bold mb-2">
-              User name
-            </label>
-            <input
-              type="text"
-              id="username"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-6">
-            <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <a href="#" className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
-              Forgot Password?
-            </a>
-          </div>
-          <div className="flex flex-col space-y-4">
-            <button
-              type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+    <div
+      style={{
+        minHeight: "100vh",
+        width: "100vw",
+        position: "relative",
+        background: "linear-gradient(135deg, #3575d3 0%, #4faaff 100%)",
+        overflow: "hidden",
+      }}
+    >
+      {/* Vòng tròn mờ */}
+      <div
+        style={{
+          position: "absolute",
+          top: 40,
+          left: 40,
+          width: 80,
+          height: 80,
+          borderRadius: "50%",
+          background: "rgba(255,255,255,0.08)",
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          top: 120,
+          right: 120,
+          width: 60,
+          height: 60,
+          borderRadius: "50%",
+          background: "rgba(255,255,255,0.08)",
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          bottom: 120,
+          left: 400,
+          width: 50,
+          height: 50,
+          borderRadius: "50%",
+          background: "rgba(255,255,255,0.08)",
+        }}
+      />
+
+      {/* Form đăng nhập */}
+      <div
+        style={{
+          position: "relative",
+          zIndex: 2,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          minHeight: "100vh",
+        }}
+      >
+        <div
+          style={{
+            background: "rgba(255,255,255,0.13)",
+            borderRadius: 20,
+            boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
+            padding: 40,
+            width: 400,
+            backdropFilter: "blur(2px)",
+            border: "1px solid rgba(255,255,255,0.18)",
+          }}
+        >
+          <div style={{ textAlign: "center", marginBottom: 16 }}>
+            <div
+              style={{
+                width: 64,
+                height: 64,
+                borderRadius: "50%",
+                background: "rgba(255,255,255,0.18)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                margin: "0 auto 12px auto",
+              }}
             >
-              Login
-            </button>
-            {/* Nếu có nút "Đăng nhập" riêng như trong mẫu */}
-            <button
-              type="button" // Change to button type to prevent form submission if it's just a secondary action
-              className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              <span style={{ fontSize: 36 }}>🚌</span>
+            </div>
+            <h2
+              style={{
+                fontWeight: "bold",
+                fontSize: 28,
+                color: "#fff",
+                marginBottom: 4,
+              }}
+            >
+              Smart School Bus
+            </h2>
+            <div style={{ color: "#e0e7ff", fontSize: 16 }}>
+              Hệ thống quản lý xe đưa đón học sinh
+            </div>
+          </div>
+          <form onSubmit={handleSubmit}>
+            <h3
+              style={{
+                textAlign: "center",
+                color: "#fff",
+                fontWeight: "bold",
+                fontSize: 22,
+                marginBottom: 18,
+              }}
             >
               Đăng nhập
-            <h1>Login Page</h1>;
+            </h3>
+            <div style={{ marginBottom: 16 }}>
+              <label
+                style={{
+                  color: "#fff",
+                  fontWeight: "bold",
+                  fontSize: 15,
+                }}
+              >
+                Tên đăng nhập hoặc Email
+              </label>
+              <div style={{ position: "relative" }}>
+                <input
+                  type="text"
+                  placeholder="Nhập tên đăng nhập hoặc email"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  style={{
+                    width: "100%",
+                    padding: "12px 16px",
+                    borderRadius: 8,
+                    border: "none",
+                    marginTop: 6,
+                    fontSize: 16,
+                    background: "rgba(255,255,255,0.25)",
+                    color: "#222",
+                    outline: "none",
+                  }}
+                  required
+                />
+                <span
+                  style={{
+                    position: "absolute",
+                    left: 10,
+                    top: 16,
+                    color: "#3575d3",
+                    fontSize: 18,
+                  }}
+                >
+                  <i className="fa fa-user" />
+                </span>
+              </div>
+            </div>
+            <div style={{ marginBottom: 16 }}>
+              <label
+                style={{
+                  color: "#fff",
+                  fontWeight: "bold",
+                  fontSize: 15,
+                }}
+              >
+                Mật khẩu
+              </label>
+              <div style={{ position: "relative" }}>
+                <input
+                  type="password"
+                  placeholder="Nhập mật khẩu"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  style={{
+                    width: "100%",
+                    padding: "12px 16px",
+                    borderRadius: 8,
+                    border: "none",
+                    marginTop: 6,
+                    fontSize: 16,
+                    background: "rgba(255,255,255,0.25)",
+                    color: "#222",
+                    outline: "none",
+                  }}
+                  required
+                />
+                <span
+                  style={{
+                    position: "absolute",
+                    right: 10,
+                    top: 16,
+                    color: "#3575d3",
+                    fontSize: 18,
+                  }}
+                >
+                  <i className="fa fa-eye" />
+                </span>
+              </div>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginBottom: 18,
+              }}
+            >
+              <label
+                style={{
+                  color: "#fff",
+                  fontSize: 15,
+                }}
+              >
+                <input
+                  type="checkbox"
+                  checked={remember}
+                  onChange={(e) => setRemember(e.target.checked)}
+                  style={{ marginRight: 6 }}
+                />
+                Ghi nhớ đăng nhập
+              </label>
+              <a
+                href="#"
+                style={{
+                  color: "#fff",
+                  textDecoration: "underline",
+                  fontSize: 15,
+                }}
+              >
+                Quên mật khẩu?
+              </a>
+            </div>
+            <button
+              type="submit"
+              style={{
+                width: "100%",
+                padding: "12px",
+                borderRadius: 8,
+                border: "none",
+                background: "#fff",
+                color: "#3575d3",
+                fontWeight: "bold",
+                fontSize: 18,
+                cursor: "pointer",
+                marginBottom: 8,
+              }}
+            >
+              <span style={{ marginRight: 8 }}>
+                <i className="fa fa-sign-in" />
+              </span>
+              Đăng nhập
             </button>
-          </div>
-        </form>
+          </form>
+        </div>
+      </div>
+
+      {/* Xe bus, cây phía dưới */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          width: "100%",
+          height: 80,
+          zIndex: 1,
+          display: "flex",
+          alignItems: "flex-end",
+        }}
+      >
+        <svg
+          width="100%"
+          height="80"
+          style={{ position: "absolute", left: 0, bottom: 0 }}
+        >
+          {/* Đường */}
+          <rect x="0" y="60" width="100%" height="20" fill="#222" />
+          {/* Cây và xe bus */}
+          {/* Cây */}
+          <circle cx="50" cy="55" r="10" fill="#2ecc40" />
+          <rect x="47" y="65" width="6" height="15" fill="#3e3e3e" />
+          <circle cx="120" cy="55" r="10" fill="#2ecc40" />
+          <rect x="117" y="65" width="6" height="15" fill="#3e3e3e" />
+          <circle cx="200" cy="55" r="10" fill="#2ecc40" />
+          <rect x="197" y="65" width="6" height="15" fill="#3e3e3e" />
+          {/* Xe bus xanh */}
+          <rect x="70" y="70" width="40" height="18" rx="6" fill="#2eccfa" />
+          <rect x="75" y="74" width="30" height="8" rx="2" fill="#fff" />
+          <circle cx="80" cy="88" r="4" fill="#222" />
+          <circle cx="105" cy="88" r="4" fill="#222" />
+          {/* Xe bus vàng */}
+          <rect x="300" y="70" width="40" height="18" rx="6" fill="#ffcb05" />
+          <rect x="305" y="74" width="30" height="8" rx="2" fill="#fff" />
+          <circle cx="310" cy="88" r="4" fill="#222" />
+          <circle cx="335" cy="88" r="4" fill="#222" />
+          {/* Xe bus đỏ */}
+          <rect x="400" y="70" width="40" height="18" rx="6" fill="#e74c3c" />
+          <rect x="405" y="74" width="30" height="8" rx="2" fill="#fff" />
+          <circle cx="410" cy="88" r="4" fill="#222" />
+          <circle cx="435" cy="88" r="4" fill="#222" />
+          {/* Xe bus tím */}
+          <rect x="600" y="70" width="40" height="18" rx="6" fill="#a259e6" />
+          <rect x="605" y="74" width="30" height="8" rx="2" fill="#fff" />
+          <circle cx="610" cy="88" r="4" fill="#222" />
+          <circle cx="635" cy="88" r="4" fill="#222" />
+          {/* Thêm cây nữa */}
+          <circle cx="700" cy="55" r="10" fill="#2ecc40" />
+          <rect x="697" y="65" width="6" height="15" fill="#3e3e3e" />
+        </svg>
+      </div>
+
+      {/* Bản quyền và icon liên hệ */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: 10,
+          width: "100%",
+          textAlign: "center",
+          color: "#fff",
+          fontSize: 15,
+        }}
+      >
+        © 2024 Smart School Bus. Phát triển bởi SGU
+        <div style={{ marginTop: 6 }}>
+          <span
+            style={{ margin: "0 8px", fontSize: 18 }}
+          >
+            <i className="fa fa-twitter" />
+          </span>
+          <span
+            style={{ margin: "0 8px", fontSize: 18 }}
+          >
+            <i className="fa fa-facebook" />
+          </span>
+          <span
+            style={{ margin: "0 8px", fontSize: 18 }}
+          >
+            <i className="fa fa-envelope" />
+          </span>
+        </div>
       </div>
     </div>
   );
