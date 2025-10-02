@@ -14,7 +14,9 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -27,7 +29,7 @@ public class BusStopService {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public BusStopResponse createBusStop(BusStopCreationRequest request) {
         BusStop busStop = busStopMapper.toBusStop(request);
-        busStop.setCreatedAt(LocalDate.now());
+        busStop.setCreatedAt(LocalDateTime.now());
 
         return busStopMapper.toResponse(busStopRepository.save(busStop));
     }

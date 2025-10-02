@@ -6,6 +6,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -39,7 +40,7 @@ public class Student {
     String imageUrl;
 
     @Column(name = "created_at", updatable = false, nullable = false)
-    LocalDate createdAt ;
+    LocalDateTime createdAt ;
 
     @ManyToOne
     @JoinColumn(name = "parent_id", nullable = false)

@@ -17,6 +17,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -29,7 +30,7 @@ public class StudentService {
 
     public StudentResponse createStudent(StudentCreationRequest request) {
         Student student = studentMapper.toStudent(request);
-        student.setCreatedAt(LocalDate.now());
+        student.setCreatedAt(LocalDateTime.now());
 
         if (studentRepository.existsById(request.getId()))
             throw new AppException(ErrorCode.STUDENT_EXISTED);

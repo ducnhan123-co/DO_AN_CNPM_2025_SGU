@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Table(name = "bus")
 @Entity
@@ -31,5 +32,5 @@ public class Bus {
     boolean available = true;
 
     @Column(name = "created_at", updatable = false, nullable = false)
-    LocalDate createdAt ;
+    LocalDateTime createdAt ;
 }

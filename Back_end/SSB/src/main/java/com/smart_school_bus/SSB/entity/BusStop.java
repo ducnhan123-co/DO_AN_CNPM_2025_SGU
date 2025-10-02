@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Table(name = "bus_stop")
 @Entity
@@ -31,5 +32,5 @@ public class BusStop {
     BigDecimal longitude;
 
     @Column(name = "created_at", updatable = false, nullable = false)
-    LocalDate createdAt;
+    LocalDateTime createdAt;
 }
