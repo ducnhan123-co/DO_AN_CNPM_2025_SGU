@@ -33,4 +33,9 @@ public class BusStop {
 
     @Column(name = "created_at", updatable = false, nullable = false)
     LocalDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
 }

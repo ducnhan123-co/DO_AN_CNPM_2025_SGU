@@ -66,7 +66,18 @@ public enum ErrorCode {
     INVALID_ROUTE_DISTANCE(1035, "Invalid route distance", HttpStatus.BAD_REQUEST),
     INVALID_ROUTE_BUSSTOP_IDS(1036, "Invalid route bus stop ids", HttpStatus.BAD_REQUEST),
     ROUTE_NOT_FOUND(1037, "Route not found", HttpStatus.NOT_FOUND),
-    ROUTE_EXISTED(1038, "Route existed", HttpStatus.CONFLICT);
+    ROUTE_EXISTED(1038, "Route existed", HttpStatus.CONFLICT),
+    INVALID_ORDER(1039, "Invalid bus stop order", HttpStatus.BAD_REQUEST),
+
+    // Schedule
+    INVALID_BUS_ID(1040, "Invalid bus ID", HttpStatus.BAD_REQUEST),
+    INVALID_DRIVER_ID(1041, "Invalid driver ID", HttpStatus.BAD_REQUEST),
+    INVALID_ROUTE_ID(1042, "Invalid route ID", HttpStatus.BAD_REQUEST),
+    INVALID_START_TIME(1043, "Invalid start time", HttpStatus.BAD_REQUEST),
+    INVALID_END_TIME(1044, "Invalid end time", HttpStatus.BAD_REQUEST),
+    INVALID_SCHEDULE_TIME_RANGE(1045, "End time must be after start time", HttpStatus.BAD_REQUEST),
+    SCHEDULE_NOT_FOUND(1046, "Schedule not found", HttpStatus.NOT_FOUND),
+    SCHEDULE_EXISTED(1047, "Schedule existed", HttpStatus.CONFLICT);
     ;
     int code;
     String message;

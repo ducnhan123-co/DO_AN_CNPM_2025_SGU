@@ -66,4 +66,9 @@ public class User {
 
     @OneToOne(mappedBy = "user")
     Driver driver;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
 }

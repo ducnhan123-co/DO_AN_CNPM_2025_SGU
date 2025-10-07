@@ -29,7 +29,6 @@ public class BusStopService {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public BusStopResponse createBusStop(BusStopCreationRequest request) {
         BusStop busStop = busStopMapper.toBusStop(request);
-        busStop.setCreatedAt(LocalDateTime.now());
 
         return busStopMapper.toResponse(busStopRepository.save(busStop));
     }

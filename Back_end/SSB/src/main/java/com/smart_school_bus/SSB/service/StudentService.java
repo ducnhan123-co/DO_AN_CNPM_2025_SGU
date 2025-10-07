@@ -30,7 +30,6 @@ public class StudentService {
 
     public StudentResponse createStudent(StudentCreationRequest request) {
         Student student = studentMapper.toStudent(request);
-        student.setCreatedAt(LocalDateTime.now());
 
         if (studentRepository.existsById(request.getId()))
             throw new AppException(ErrorCode.STUDENT_EXISTED);

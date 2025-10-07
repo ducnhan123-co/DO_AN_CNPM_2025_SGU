@@ -37,7 +37,6 @@ public class UserService {
     public UserResponse createUser(UserCreationRequest request) {
         User user = userMapper.toUser(request);
 
-        user.setCreatedAt(LocalDateTime.now());
         user.setUserName(user.getPhoneNumber());
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));

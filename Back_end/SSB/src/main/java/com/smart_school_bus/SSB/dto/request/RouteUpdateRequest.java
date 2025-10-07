@@ -22,5 +22,5 @@ public class RouteUpdateRequest {
     Double distance;
 
     @NotNull(message = "INVALID_ROUTE_BUSSTOP_IDS")
-    Set<String> busStopIds;
+    Set<RouteBusStopCreationRequest> busStopsOrder;
 }

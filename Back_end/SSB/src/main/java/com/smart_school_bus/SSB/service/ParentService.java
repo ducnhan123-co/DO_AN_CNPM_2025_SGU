@@ -34,9 +34,7 @@ import static java.rmi.server.LogStream.log;
 public class ParentService {
     UserRepository userRepository;
     ParentRepository parentRepository;
-    StudentMapper studentMapper;
     ParentMapper parentMapper;
-    UserMapper userMapper;
 
     public ParentResponse createParent(ParentCreationRequest request) {
         User user = userRepository.findById(request.getUserId())

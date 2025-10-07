@@ -1,14 +1,17 @@
 package com.smart_school_bus.SSB.service;
 
 import com.smart_school_bus.SSB.dto.request.RouteCreationRequest;
+import com.smart_school_bus.SSB.dto.request.RouteUpdateRequest;
 import com.smart_school_bus.SSB.dto.response.RouteResponse;
 import com.smart_school_bus.SSB.entity.BusStop;
 import com.smart_school_bus.SSB.entity.Route;
+import com.smart_school_bus.SSB.entity.RouteBusStop;
 import com.smart_school_bus.SSB.exception.AppException;
 import com.smart_school_bus.SSB.exception.ErrorCode;
 import com.smart_school_bus.SSB.mapper.RouteMapper;
 import com.smart_school_bus.SSB.repository.BusStopRepository;
 import com.smart_school_bus.SSB.repository.RouteRepository;
+import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -27,25 +30,29 @@ public class RouteService {
     RouteMapper routeMapper;
     BusStopRepository busStopRepository;
 
+    @Transactional
     public RouteResponse createRoute(RouteCreationRequest request) {
         if (routeRepository.existsByName(request.getName())) {
             throw new AppException(ErrorCode.ROUTE_EXISTED);
         }
 
-        Set<BusStop> busStops = new HashSet<>();
-        request.getBusStopIds().forEach(id -> {
-            BusStop busStop = busStopRepository.findById(id)
+        Route route = routeMapper.toRoute(request);
+
+        Set<RouteBusStop> routeBusStops = new HashSet<>();
+        request.getBusStopsOrder().forEach(busStopOrder -> {
+            BusStop busStop = busStopRepository.findById(busStopOrder.getBusStopId())
                     .orElseThrow(() -> new AppException(ErrorCode.BUS_STOP_NOT_FOUND));
 
-            busStops.add(busStop);
+            routeBusStops.add(
+                    RouteBusStop.builder()
+                            .route(route)
+                            .busStop(busStop)
+                            .stopOrder(busStopOrder.getStopOrder())
+                            .build()
+            );
         });
-        if (busStops.isEmpty())
-            throw new AppException(ErrorCode.INVALID_ROUTE_BUSSTOP_IDS);
 
-        Route route = routeMapper.toRoute(request);
-        route.setBusStops(busStops);
-        route.setCreatedAt(LocalDateTime.now());
-
+        route.setBusStops(routeBusStops);
         return routeMapper.toResponse(routeRepository.save(route));
     }
 
@@ -63,7 +70,8 @@ public class RouteService {
         return routeMapper.toResponse(route);
     }
 
-    public RouteResponse updateRoute(String id, RouteCreationRequest request) {
+    @Transactional
+    public RouteResponse updateRoute(String id, RouteUpdateRequest request) {
         Route route = routeRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.ROUTE_NOT_FOUND));
 
@@ -72,14 +80,23 @@ public class RouteService {
             throw new AppException(ErrorCode.ROUTE_EXISTED);
         }
 
-        Set<BusStop> busStops = new HashSet<>();
-        request.getBusStopIds().forEach(busStopId -> {
-            BusStop busStop = busStopRepository.findById(busStopId)
+        routeMapper.updateRoute(route, request);
+
+        Set<RouteBusStop> routeBusStops = new HashSet<>();
+        request.getBusStopsOrder().forEach(busStopOrder -> {
+            BusStop busStop = busStopRepository.findById(busStopOrder.getBusStopId())
                     .orElseThrow(() -> new AppException(ErrorCode.BUS_STOP_NOT_FOUND));
-            busStops.add(busStop);
+
+            routeBusStops.add(
+                    RouteBusStop.builder()
+                            .route(route)
+                            .busStop(busStop)
+                            .stopOrder(busStopOrder.getStopOrder())
+                            .build()
+            );
         });
 
-        route.setBusStops(busStops);
+        route.setBusStops(routeBusStops);
 
         return routeMapper.toResponse(routeRepository.save(route));
     }

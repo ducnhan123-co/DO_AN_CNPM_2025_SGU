@@ -1,6 +1,7 @@
 package com.smart_school_bus.SSB.controller;
 
 import com.smart_school_bus.SSB.dto.request.RouteCreationRequest;
+import com.smart_school_bus.SSB.dto.request.RouteUpdateRequest;
 import com.smart_school_bus.SSB.dto.response.ApiResponse;
 import com.smart_school_bus.SSB.dto.response.RouteResponse;
 import com.smart_school_bus.SSB.service.RouteService;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.UnresolvedPermission;
 import java.time.Instant;
 import java.util.List;
 
@@ -60,7 +62,7 @@ public class RouteController {
     }
 
     @PutMapping("/{id}")
-    public ApiResponse<RouteResponse> updateRoute(@PathVariable String id, @Valid @RequestBody RouteCreationRequest request) {
+    public ApiResponse<RouteResponse> updateRoute(@PathVariable String id, @Valid @RequestBody RouteUpdateRequest request) {
         RouteResponse data = routeService.updateRoute(id, request);
         return ApiResponse.<RouteResponse>builder()
                 .success(true)

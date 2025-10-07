@@ -29,7 +29,6 @@ public class BusService {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public BusResponse createBus(BusCreationRequest request) {
         Bus bus = busMapper.toBus(request);
-        bus.setCreatedAt(LocalDateTime.now());
 
         try {
             busRepository.save(bus);

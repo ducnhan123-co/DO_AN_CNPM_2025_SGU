@@ -4,11 +4,9 @@ import com.smart_school_bus.SSB.dto.request.RouteCreationRequest;
 import com.smart_school_bus.SSB.dto.request.RouteUpdateRequest;
 import com.smart_school_bus.SSB.dto.response.RouteResponse;
 import com.smart_school_bus.SSB.entity.Route;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.*;
 
-@Mapper(componentModel = "spring", uses = BusStopMapper.class)
+@Mapper(componentModel = "spring", uses = {BusStopMapper.class})
 public interface RouteMapper {
     @Mapping(target = "busStops", ignore = true)
     Route toRoute(RouteCreationRequest request);
@@ -16,6 +14,7 @@ public interface RouteMapper {
     RouteResponse toResponse(Route route);
 
     @Mapping(target = "busStops", ignore = true)
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     public void updateRoute(@MappingTarget Route route, RouteUpdateRequest request);
 }
 

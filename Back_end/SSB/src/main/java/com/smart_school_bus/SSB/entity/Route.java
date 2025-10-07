@@ -29,13 +29,14 @@ public class Route {
     @Column(name = "distance")
     Double distance;
 
-    @ManyToMany()
-    @JoinTable(name = "route_stop",
-            joinColumns = @JoinColumn(name = "route_id"),
-            inverseJoinColumns = @JoinColumn(name = "bus_stop_id")
-    )
-    Set<BusStop> busStops;
+    @OneToMany(mappedBy = "route", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true)
+    Set<RouteBusStop> busStops;
 
     @Column(name = "created_at", updatable = false, nullable = false)
     LocalDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
 }

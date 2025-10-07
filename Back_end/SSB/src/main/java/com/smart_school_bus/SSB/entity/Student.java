@@ -7,6 +7,7 @@ import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -45,5 +46,13 @@ public class Student {
     @ManyToOne
     @JoinColumn(name = "parent_id", nullable = false)
     Parent parent;
+
+    @ManyToMany(mappedBy = "students")
+    Set<Schedule> schedules;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
 }
     
