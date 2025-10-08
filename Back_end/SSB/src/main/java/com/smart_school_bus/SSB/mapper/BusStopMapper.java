@@ -16,5 +16,5 @@ public interface BusStopMapper {
     BusStop toBusStop(BusStopCreationRequest request);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    public void updateBusStop(@MappingTarget BusStop busStop, BusStopUpdateRequest request);
+    void updateBusStop(@MappingTarget BusStop busStop, BusStopUpdateRequest request);
 }

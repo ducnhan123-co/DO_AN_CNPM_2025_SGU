@@ -6,7 +6,7 @@ import com.smart_school_bus.SSB.dto.response.ScheduleResponse;
 import com.smart_school_bus.SSB.entity.Schedule;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring", uses = {BusMapper.class, DriverMapper.class, RouteMapper.class, StudentMapper.class})
+@Mapper(componentModel = "spring", uses = {BusMapper.class, DriverMapper.class, RouteMapper.class, ScheduleStudentMapper.class})
 public interface ScheduleMapper {
     @Mapping(target = "bus", ignore = true)
     @Mapping(target = "driver", ignore = true)
@@ -17,7 +17,7 @@ public interface ScheduleMapper {
     @Mapping(target = "bus", ignore = true)
     @Mapping(target = "driver", ignore = true)
     @Mapping(target = "route", ignore = true)
-    public void updateSchedule(@MappingTarget Schedule schedule, ScheduleUpdateRequest request);
+    void updateSchedule(@MappingTarget Schedule schedule, ScheduleUpdateRequest request);
 
     ScheduleResponse toResponse(Schedule schedule);
 }

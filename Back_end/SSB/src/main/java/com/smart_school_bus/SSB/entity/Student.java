@@ -47,7 +47,7 @@ public class Student {
     @JoinColumn(name = "parent_id", nullable = false)
     Parent parent;
 
-    @ManyToMany(mappedBy = "students")
+    @ManyToMany(mappedBy = "students", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     Set<Schedule> schedules;
 
     @PrePersist

@@ -15,5 +15,5 @@ public interface BusMapper {
     BusResponse toResponse(Bus bus);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    public void updateBus(@MappingTarget Bus bus, BusUpdateRequest request);
+    void updateBus(@MappingTarget Bus bus, BusUpdateRequest request);
 }

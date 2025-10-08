@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Set;
 
 @Data
@@ -11,11 +12,12 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class RouteResponse {
+public class ScheduleWithoutStudentsResponse {
     String id;
-    String name;
-    String description;
-    Double distance;
-    Set<RouteBusStopResponse> busStops;
+    BusResponse bus;
+    DriverResponse driver;
+    RouteResponse route;
+    LocalTime startTime;
+    LocalTime endTime;
     LocalDateTime createdAt;
 }

@@ -6,7 +6,7 @@ import com.smart_school_bus.SSB.dto.response.StudentResponse;
 import com.smart_school_bus.SSB.entity.Student;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring", uses = {ParentMapper.class})
+@Mapper(componentModel = "spring", uses = {ParentMapper.class, ScheduleMapper.class})
 public interface StudentMapper {
     @Mapping(target = "parent", ignore = true)
     Student toStudent(StudentCreationRequest request);
@@ -14,5 +14,5 @@ public interface StudentMapper {
     StudentResponse toResponse(Student student);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    public void updateStudent(@MappingTarget Student student, StudentUpdateRequest request);
+    void updateStudent(@MappingTarget Student student, StudentUpdateRequest request);
 }

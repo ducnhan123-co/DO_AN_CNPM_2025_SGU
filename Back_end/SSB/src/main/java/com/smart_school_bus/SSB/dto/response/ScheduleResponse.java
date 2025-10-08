@@ -1,15 +1,17 @@
 package com.smart_school_bus.SSB.dto.response;
 
-import com.smart_school_bus.SSB.entity.Bus;
-import com.smart_school_bus.SSB.entity.Driver;
-import com.smart_school_bus.SSB.entity.Route;
-import com.smart_school_bus.SSB.entity.Student;
-import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Set;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ScheduleResponse {
     String id;
     BusResponse bus;
@@ -17,6 +19,6 @@ public class ScheduleResponse {
     RouteResponse route;
     LocalTime startTime;
     LocalTime endTime;
-    Set<StudentResponse> students;
+    Set<StudentWithoutSchedulesResponse> students;
     LocalDateTime createdAt;
 }
