@@ -2,17 +2,12 @@ package com.smart_school_bus.SSB.service;
 
 import com.smart_school_bus.SSB.dto.request.ParentCreationRequest;
 import com.smart_school_bus.SSB.dto.response.ParentResponse;
-import com.smart_school_bus.SSB.dto.response.StudentResponse;
 import com.smart_school_bus.SSB.entity.Parent;
-import com.smart_school_bus.SSB.entity.Student;
 import com.smart_school_bus.SSB.entity.User;
 import com.smart_school_bus.SSB.exception.AppException;
 import com.smart_school_bus.SSB.exception.ErrorCode;
 import com.smart_school_bus.SSB.mapper.ParentMapper;
-import com.smart_school_bus.SSB.mapper.StudentMapper;
-import com.smart_school_bus.SSB.mapper.UserMapper;
 import com.smart_school_bus.SSB.repository.ParentRepository;
-import com.smart_school_bus.SSB.repository.StudentRepository;
 import com.smart_school_bus.SSB.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -20,12 +15,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
-import static java.rmi.server.LogStream.log;
 
 @Service
 @RequiredArgsConstructor
@@ -34,9 +24,7 @@ import static java.rmi.server.LogStream.log;
 public class ParentService {
     UserRepository userRepository;
     ParentRepository parentRepository;
-    StudentMapper studentMapper;
     ParentMapper parentMapper;
-    UserMapper userMapper;
 
     public ParentResponse createParent(ParentCreationRequest request) {
         User user = userRepository.findById(request.getUserId())

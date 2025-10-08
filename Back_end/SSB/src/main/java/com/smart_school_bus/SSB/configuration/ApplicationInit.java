@@ -19,6 +19,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -116,7 +117,7 @@ public class ApplicationInit {
                         .userName(ADMIN_USER_NAME)
                         .password(passwordEncoder.encode(ADMIN_PASSWORD))
                         .roles(roles)
-                        .createdAt(LocalDate.now())
+                        .createdAt(LocalDateTime.now())
                         .build();
 
                 userRepository.save(admin);

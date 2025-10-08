@@ -15,7 +15,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -28,7 +27,6 @@ public class BusService {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public BusResponse createBus(BusCreationRequest request) {
         Bus bus = busMapper.toBus(request);
-        bus.setCreatedAt(LocalDate.now());
 
         try {
             busRepository.save(bus);

@@ -1,10 +1,10 @@
 package com.smart_school_bus.SSB.controller;
 
 import com.smart_school_bus.SSB.dto.request.StudentCreationRequest;
+import com.smart_school_bus.SSB.dto.request.StudentScheduleUpdateRequest;
 import com.smart_school_bus.SSB.dto.request.StudentUpdateRequest;
 import com.smart_school_bus.SSB.dto.response.ApiResponse;
 import com.smart_school_bus.SSB.dto.response.StudentResponse;
-import com.smart_school_bus.SSB.dto.response.UserResponse;
 import com.smart_school_bus.SSB.service.StudentService;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
@@ -32,6 +32,21 @@ public class StudentController {
                 .timestamp(Instant.now())
                 .data(data)
                 .message("Create student successfully")
+                .build();
+
+        return response;
+    }
+
+    @PostMapping("/schedule/{id}")
+    public ApiResponse<StudentResponse> updateSchedule(@PathVariable String id, @Valid @RequestBody StudentScheduleUpdateRequest request) {
+        StudentResponse data = studentService.updateSchedule(id, request);
+
+        ApiResponse response = ApiResponse.<StudentResponse>builder()
+                .success(true)
+                .status(1000)
+                .timestamp(Instant.now())
+                .data(data)
+                .message("Update student successfully")
                 .build();
 
         return response;
@@ -87,5 +102,4 @@ public class StudentController {
                 .message("Delete student successfully")
                 .build();
     }
-
 }

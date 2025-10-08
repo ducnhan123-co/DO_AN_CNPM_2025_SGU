@@ -23,6 +23,6 @@ public class Parent {
     @JoinColumn(name = "user_id", unique = true, nullable = false)
     User user;
 
-    @OneToMany(mappedBy = "parent")
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<Student> students;
 }

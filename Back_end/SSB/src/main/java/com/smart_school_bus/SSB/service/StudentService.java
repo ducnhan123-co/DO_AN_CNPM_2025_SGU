@@ -1,35 +1,39 @@
 package com.smart_school_bus.SSB.service;
 
 import com.smart_school_bus.SSB.dto.request.StudentCreationRequest;
+import com.smart_school_bus.SSB.dto.request.StudentScheduleUpdateRequest;
 import com.smart_school_bus.SSB.dto.request.StudentUpdateRequest;
 import com.smart_school_bus.SSB.dto.response.StudentResponse;
 import com.smart_school_bus.SSB.entity.Parent;
+import com.smart_school_bus.SSB.entity.Schedule;
 import com.smart_school_bus.SSB.entity.Student;
 import com.smart_school_bus.SSB.exception.AppException;
 import com.smart_school_bus.SSB.exception.ErrorCode;
 import com.smart_school_bus.SSB.mapper.StudentMapper;
 import com.smart_school_bus.SSB.repository.ParentRepository;
+import com.smart_school_bus.SSB.repository.ScheduleRepository;
 import com.smart_school_bus.SSB.repository.StudentRepository;
+import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class StudentService {
     StudentRepository studentRepository;
     StudentMapper studentMapper;
     ParentRepository parentRepository;
+    ScheduleRepository scheduleRepository;
 
     public StudentResponse createStudent(StudentCreationRequest request) {
         Student student = studentMapper.toStudent(request);
-        student.setCreatedAt(LocalDate.now());
 
         if (studentRepository.existsById(request.getId()))
             throw new AppException(ErrorCode.STUDENT_EXISTED);
@@ -69,5 +73,24 @@ public class StudentService {
                 .orElseThrow(() -> new AppException(ErrorCode.STUDENT_NOT_FOUND));
 
         studentRepository.delete(student);
+    }
+
+    @Transactional
+    public StudentResponse updateSchedule(String id, StudentScheduleUpdateRequest studentScheduleUpdateRequest) {
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorCode.STUDENT_NOT_FOUND));
+
+        Set<Schedule> schedules = new HashSet<>();
+
+        studentScheduleUpdateRequest.getScheduleIds().forEach(scheduleId -> {
+            Schedule schedule = scheduleRepository.findById(scheduleId)
+                    .orElseThrow(() -> new AppException(ErrorCode.SCHEDULE_NOT_FOUND));
+
+            schedule.getStudents().add(student);
+            schedules.add(schedule);
+        });
+
+        student.setSchedules(schedules);
+        return studentMapper.toResponse(student);
     }
 }

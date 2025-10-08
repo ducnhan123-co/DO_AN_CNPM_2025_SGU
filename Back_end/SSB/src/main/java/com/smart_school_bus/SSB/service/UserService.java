@@ -1,6 +1,5 @@
 package com.smart_school_bus.SSB.service;
 
-import com.smart_school_bus.SSB.constant.PredefinedRoles;
 import com.smart_school_bus.SSB.dto.request.UserCreationRequest;
 import com.smart_school_bus.SSB.dto.request.UserUpdateRequest;
 import com.smart_school_bus.SSB.dto.response.UserResponse;
@@ -15,12 +14,11 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -39,7 +37,6 @@ public class UserService {
     public UserResponse createUser(UserCreationRequest request) {
         User user = userMapper.toUser(request);
 
-        user.setCreatedAt(LocalDate.now());
         user.setUserName(user.getPhoneNumber());
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
