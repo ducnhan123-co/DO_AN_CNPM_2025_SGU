@@ -1,12 +1,10 @@
 package com.smart_school_bus.SSB.dto.response;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -21,5 +19,5 @@ public class StudentResponse {
     String address;
     String classRoom;
     String imageUrl;
-    ParentResponse parent;
+    Set<ScheduleWithoutStudentsResponse> schedules;
 }

@@ -11,7 +11,6 @@ import com.smart_school_bus.SSB.entity.User;
 import com.smart_school_bus.SSB.exception.AppException;
 import com.smart_school_bus.SSB.exception.ErrorCode;
 import com.smart_school_bus.SSB.mapper.DriverMapper;
-import com.smart_school_bus.SSB.mapper.UserMapper;
 import com.smart_school_bus.SSB.repository.DriverRepository;
 import com.smart_school_bus.SSB.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -21,7 +20,6 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service

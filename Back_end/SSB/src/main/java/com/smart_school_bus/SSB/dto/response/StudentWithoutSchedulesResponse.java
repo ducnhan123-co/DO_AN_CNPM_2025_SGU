@@ -3,6 +3,7 @@ package com.smart_school_bus.SSB.dto.response;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 @Data
@@ -10,8 +11,13 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ParentResponse {
+public class StudentWithoutSchedulesResponse {
     String id;
-    UserResponse user;
-    Set<StudentResponse> students;
+    String firstName;
+    String lastName;
+    LocalDate dob;
+    String address;
+    String classRoom;
+    String imageUrl;
+    ParentResponse parent;
 }
