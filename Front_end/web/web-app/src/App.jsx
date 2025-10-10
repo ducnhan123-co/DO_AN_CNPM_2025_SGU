@@ -2,25 +2,34 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
-import HomePage from "./pages/HomePage.jsx";
-import LoginPage from "./pages/LoginPage.jsx";
-import AdminPage from "./pages/AdminPage.jsx";
+// import HomePage from "./pages/HomePage.jsx";
+// import AdminPage from "./pages/AdminPage.jsx";
+// import Login from "./pages/login/LoginPage.jsx";
+// import StudentsPage from "./pages/admin/StudentsPage.jsx";
+// import RoutesPage from "./pages/admin/RoutesPage.jsx";
+// import SchedulePage from "./pages/admin/SchedulePage.jsx";
+// import TrackingPage from "./pages/admin/TrackingPage.jsx";
+// import MessagesPage from "./pages/admin/MessagesPage.jsx";
+// import AdminDashboard from "./components/admin/AdminDashboard.jsx"
 
-import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
-import BusesPage from "./pages/admin/BusesPage.jsx";
-import DriversPage from "./pages/admin/DriversPage.jsx";
-import StudentsPage from "./pages/admin/StudentsPage.jsx";
-import RoutesPage from "./pages/admin/RoutesPage.jsx";
-import SchedulePage from "./pages/admin/SchedulePage.jsx";
-import TrackingPage from "./pages/admin/TrackingPage.jsx";
-import MessagesPage from "./pages/admin/MessagesPage.jsx";
+import HomePage from "./pages/HomePage"
+import AdminPage from "./pages/AdminPage"
+import Login from "./pages/login/LoginPage.jsx";
+import StudentsPage from "./components/admin/StudentsPage.jsx"
+import RoutesPage from "./components/admin/RoutesPage.jsx"
+import SchedulePage from "./components/admin/SchedulePage.jsx"
+import TrackingPage from "./components/admin/TrackingPage.jsx"
+import MessagesPage from "./components/admin/MessagesPage.jsx"
+import AdminDashboard from "./components/admin/AdminDashboard.jsx"
+import BusesPage from "./components/admin/BusesPage.jsx"
+import DriversPage from "./components/admin/DriversPage.jsx"
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/login" element={<Login />} />
 
         {/* Admin layout + children */}
         <Route path="/admin" element={<AdminPage />}>
