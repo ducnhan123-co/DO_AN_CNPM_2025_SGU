@@ -17,6 +17,7 @@ import com.smart_school_bus.SSB.repository.ScheduleRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,6 +32,7 @@ public class ScheduleService {
     BusRepository busRepository;
     RouteRepository routeRepository;
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ScheduleResponse createSchedule(ScheduleCreationRequest request) {
         Schedule schedule = scheduleMapper.toSchedule(request);
 
@@ -63,6 +65,7 @@ public class ScheduleService {
         return scheduleMapper.toResponse(schedule);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ScheduleResponse updateSchedule(String id, ScheduleUpdateRequest request) {
         Schedule schedule = scheduleRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.SCHEDULE_NOT_FOUND));
@@ -90,6 +93,7 @@ public class ScheduleService {
         return scheduleMapper.toResponse(scheduleRepository.save(schedule));
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public void deleteSchedule(String id) {
         Schedule schedule = scheduleRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.SCHEDULE_NOT_FOUND));

@@ -45,9 +45,8 @@ public class ParentController {
 
     @PostMapping("/createUser")
     public ApiResponse createUserParent(@Valid @RequestBody UserCreationRequest request) {
-        Set<String> roleNames = new HashSet<>();
-        roleNames.add(PredefinedRoles.PARENT_ROLE);
-        request.setRoleNames(roleNames);
+        request.setRoleNames(new HashSet<>(Set.of(PredefinedRoles.PARENT_ROLE)));
+
         UserResponse userResponse = userService.createUser(request);
 
         ParentCreationRequest parentCreationRequest = ParentCreationRequest.builder()

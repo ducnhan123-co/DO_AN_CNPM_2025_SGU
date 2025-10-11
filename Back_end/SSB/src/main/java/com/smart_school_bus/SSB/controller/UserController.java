@@ -1,5 +1,6 @@
 package com.smart_school_bus.SSB.controller;
 
+import com.smart_school_bus.SSB.dto.request.ChangePasswordRequest;
 import com.smart_school_bus.SSB.dto.request.UserCreationRequest;
 import com.smart_school_bus.SSB.dto.request.UserUpdateRequest;
 import com.smart_school_bus.SSB.dto.response.ApiResponse;
@@ -80,6 +81,20 @@ public class UserController {
                 .status(1000)
                 .timestamp(Instant.now())
                 .data(data)
+                .message("Update user successfully")
+                .build();
+
+        return response;
+    }
+
+    @PutMapping("/password/{id}")
+    public ApiResponse changePassword(@PathVariable String id,@Valid @RequestBody ChangePasswordRequest request) {
+        userService.changePassword(id, request);
+
+        ApiResponse response = ApiResponse.builder()
+                .success(true)
+                .status(1000)
+                .timestamp(Instant.now())
                 .message("Update user successfully")
                 .build();
 

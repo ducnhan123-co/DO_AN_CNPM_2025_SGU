@@ -17,6 +17,7 @@ import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -32,6 +33,7 @@ public class StudentService {
     ParentRepository parentRepository;
     ScheduleRepository scheduleRepository;
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public StudentResponse createStudent(StudentCreationRequest request) {
         Student student = studentMapper.toStudent(request);
 
@@ -45,6 +47,7 @@ public class StudentService {
         return studentMapper.toResponse(studentRepository.save(student));
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public List<StudentResponse> getStudents() {
         List<Student> students = studentRepository.findAll();
 
@@ -68,6 +71,7 @@ public class StudentService {
         return studentMapper.toResponse(studentRepository.save(student));
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public void deleteStudent(String id) {
         Student student = studentRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.STUDENT_NOT_FOUND));

@@ -53,6 +53,7 @@ public class BusService {
         return busMapper.toResponse(bus);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public BusResponse updateBus(BusUpdateRequest request, String id) {
         Bus bus = busRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.BUS_NOT_FOUND));
 

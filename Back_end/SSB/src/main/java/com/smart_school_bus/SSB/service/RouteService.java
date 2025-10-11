@@ -15,6 +15,7 @@ import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -31,6 +32,7 @@ public class RouteService {
     BusStopRepository busStopRepository;
 
     @Transactional
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public RouteResponse createRoute(RouteCreationRequest request) {
         if (routeRepository.existsByName(request.getName())) {
             throw new AppException(ErrorCode.ROUTE_EXISTED);
@@ -56,6 +58,7 @@ public class RouteService {
         return routeMapper.toResponse(routeRepository.save(route));
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public List<RouteResponse> getAllRoutes() {
         return routeRepository.findAll()
                 .stream()
@@ -71,6 +74,7 @@ public class RouteService {
     }
 
     @Transactional
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public RouteResponse updateRoute(String id, RouteUpdateRequest request) {
         Route route = routeRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.ROUTE_NOT_FOUND));
@@ -101,6 +105,7 @@ public class RouteService {
         return routeMapper.toResponse(routeRepository.save(route));
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public void deleteRoute(String id) {
         Route route = routeRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.ROUTE_NOT_FOUND));

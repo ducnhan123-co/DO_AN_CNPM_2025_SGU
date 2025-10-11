@@ -13,6 +13,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class ParentService {
     ParentRepository parentRepository;
     ParentMapper parentMapper;
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ParentResponse createParent(ParentCreationRequest request) {
         User user = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
@@ -37,6 +39,7 @@ public class ParentService {
         return parentMapper.toResponse(parentRepository.save(parent));
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public List<ParentResponse> getParents() {
         List<Parent> parents = parentRepository.findAll();
 
@@ -52,6 +55,7 @@ public class ParentService {
         return parentMapper.toResponse(parent);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public void deleteParent(String id) {
         Parent parent = parentRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.PARENT_NOT_FOUND));
