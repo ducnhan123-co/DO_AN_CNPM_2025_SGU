@@ -1,5 +1,6 @@
 package com.smart_school_bus.SSB.service;
 
+import com.smart_school_bus.SSB.dto.request.ChangePasswordRequest;
 import com.smart_school_bus.SSB.dto.request.UserCreationRequest;
 import com.smart_school_bus.SSB.dto.request.UserUpdateRequest;
 import com.smart_school_bus.SSB.dto.response.UserResponse;
@@ -19,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -39,7 +41,8 @@ public class UserService {
 
         user.setUserName(user.getPhoneNumber());
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        String password = user.getDob().format(DateTimeFormatter.ofPattern("ddMMyyyy"));
+        user.setPassword(passwordEncoder.encode(password));
 
         Set<Role> roles = new HashSet<>();
         request.getRoleNames().forEach(roleName -> {
@@ -101,5 +104,19 @@ public class UserService {
         User user = userRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
 
         userRepository.delete(user);
+    }
+
+    public void changePassword(String id, ChangePasswordRequest request) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+
+        String oldPassword = request.getOldPassword();
+        if (!(passwordEncoder.matches(oldPassword, user.getPassword()) && user.isActivate()))
+            throw new AppException(ErrorCode.UNAUTHENTICATED);
+
+        String newPassword = request.getNewPassword();
+        user.setPassword(passwordEncoder.encode(newPassword));
+
+        userRepository.save(user);
     }
 }

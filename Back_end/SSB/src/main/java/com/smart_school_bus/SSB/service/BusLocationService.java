@@ -12,6 +12,7 @@ import com.smart_school_bus.SSB.repository.BusRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public class BusLocationService {
     BusRepository busRepository;
     BusLocationMapper busLocationMapper;
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public BusLocationResponse createBusLocation(BusLocationCreationRequest request) {
         BusLocation busLocation = busLocationMapper.toBusLocation(request);
 
@@ -34,11 +36,13 @@ public class BusLocationService {
         return busLocationMapper.toResponse(busLocationRepository.save(busLocation));
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public List<BusLocationResponse> getBusLocations() {
         return busLocationRepository.findAll()
                 .stream().map(busLocationMapper::toResponse).toList();
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public List<BusLocationResponse> getBusLocationsByBus(String busId) {
         Bus bus = busRepository.findById(busId)
                 .orElseThrow(() -> new AppException(ErrorCode.BUS_NOT_FOUND));

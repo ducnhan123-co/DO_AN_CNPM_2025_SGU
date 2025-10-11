@@ -46,6 +46,7 @@ public class BusStopService {
         return busStopMapper.toResponse(busStop);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public BusStopResponse updateBusStop(String id, BusStopUpdateRequest request) {
         BusStop busStop = busStopRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.BUS_STOP_NOT_FOUND));

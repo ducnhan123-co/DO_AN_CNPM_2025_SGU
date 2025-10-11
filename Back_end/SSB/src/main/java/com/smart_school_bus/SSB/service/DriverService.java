@@ -1,5 +1,6 @@
 package com.smart_school_bus.SSB.service;
 
+import com.smart_school_bus.SSB.constant.PredefinedRoles;
 import com.smart_school_bus.SSB.dto.request.DriverAndUserCreationRequest;
 import com.smart_school_bus.SSB.dto.request.DriverCreationRequest;
 import com.smart_school_bus.SSB.dto.request.DriverUpdateRequest;
@@ -20,7 +21,9 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -50,6 +53,7 @@ public class DriverService {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public DriverResponse createDriverWithUser(DriverAndUserCreationRequest request) {
         UserCreationRequest userCreationRequest = request.getUser();
+        userCreationRequest.setRoleNames(new HashSet<>(Set.of(PredefinedRoles.DRIVER_ROLE)));
         UserResponse userResponse = userService.createUser(userCreationRequest);
 
         DriverCreationRequest driverCreationRequest = DriverCreationRequest.builder()
@@ -60,6 +64,7 @@ public class DriverService {
         return createDriver(driverCreationRequest);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public List<DriverResponse> getDrivers() {
         return driverRepository.findAll()
                 .stream()

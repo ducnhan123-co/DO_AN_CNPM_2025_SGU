@@ -15,10 +15,6 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 public class UserCreationRequest {
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z0-9]).{8,}$", message = "INVALID_PASSWORD")
-    @NotNull(message = "INVALID_PASSWORD")
-    String password;
-
     @NotNull(message = "INVALID_PHONE_NUMBER")
     @Pattern(regexp = "^0\\d{9}$", message = "INVALID_PHONE_NUMBER")
     String phoneNumber;
@@ -38,7 +34,6 @@ public class UserCreationRequest {
     @Size(max = 255, message = "INVALID_ADDRESS_LENGTH")
     String address;
 
-    @NotEmpty(message = "INVALID_ROLE")
     Set<String> roleNames;
 
     @NotNull(message = "INVALID_GENDER")

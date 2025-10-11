@@ -32,6 +32,7 @@ function Navbar() {
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="bg-white text-blue-600 p-2 rounded-lg">
+              <img src="" alt="" />
             </div>
             <div>
               <h1 className="text-xl font-bold">Smart School Bus</h1>
