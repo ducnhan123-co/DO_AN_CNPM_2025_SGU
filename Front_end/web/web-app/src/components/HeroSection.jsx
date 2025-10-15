@@ -12,9 +12,7 @@ function HeroSection() {
         </button>
       </div>
       <div className="md:w-1/2 flex justify-center items-center">
-        {/* Đây là nơi bạn sẽ đặt hình ảnh minh họa. 
-            Bạn có thể tạo một ảnh ghép hoặc sử dụng nhiều ảnh và sắp xếp bằng Tailwind */}
-        <img src="./assets/LogoBusApp3.png" alt="School Bus Tracker" className="max-w-full h-auto" />
+        <img src="/assets/LogoBusApp3.png" alt="School Bus Tracker" className="max-w-full h-auto" />
       </div>
     </div>
   );
