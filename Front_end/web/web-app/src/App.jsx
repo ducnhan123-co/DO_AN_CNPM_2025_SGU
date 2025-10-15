@@ -14,6 +14,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 
 import HomePage from "./pages/HomePage"
 import AdminPage from "./pages/AdminPage"
+import ParentPage from "./pages/parent/ParentPage.jsx";
 import Login from "./pages/login/LoginPage.jsx";
 import StudentsPage from "./components/admin/StudentsPage.jsx"
 import RoutesPage from "./components/admin/RoutesPage.jsx"
@@ -30,6 +31,8 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/parent" element={<ParentPage />} />
+
 
         {/* Admin layout + children */}
         <Route path="/admin" element={<AdminPage />}>

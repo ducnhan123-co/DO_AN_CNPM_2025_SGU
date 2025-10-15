@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from '../components/navbar/Navbar';
+import Navbar from '../components/Navbar';
 import HeroSection from '../components/HeroSection';
 
 function HomePage() {
