@@ -2,14 +2,14 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 const items = [
-  ["fas fa-tachometer-alt", "Tổng quan", ""],
-  ["fas fa-bus", "Quản lý xe buýt", "buses"],
-  ["fas fa-user-tie", "Quản lý tài xế", "drivers"],
-  ["fas fa-graduation-cap", "Quản lý học sinh", "students"],
-  ["fas fa-route", "Tuyến đường", "routes"],
-  ["fas fa-calendar-alt", "Lịch trình", "schedule"],
-  ["fas fa-map-marker-alt", "Theo dõi thời gian thực", "tracking"],
-  ["fas fa-comments", "Tin nhắn", "messages"],
+  { icon: "fas fa-tachometer-alt", label: "Tổng quan", to: "/admin", end: true },
+  { icon: "fas fa-bus",             label: "Quản lý xe buýt",           to: "/admin/buses" },
+  { icon: "fas fa-user-tie",        label: "Quản lý tài xế",            to: "/admin/drivers" },
+  { icon: "fas fa-graduation-cap",  label: "Quản lý học sinh",          to: "/admin/students" },
+  { icon: "fas fa-route",           label: "Tuyến đường",               to: "/admin/routes" },
+  { icon: "fas fa-calendar-alt",    label: "Lịch trình",                to: "/admin/schedule" },
+  { icon: "fas fa-map-marker-alt",  label: "Theo dõi thời gian thực",   to: "/admin/tracking" },
+  { icon: "fas fa-comments",        label: "Tin nhắn",                  to: "/admin/messages" },
 ];
 
 export default function AdminSidebar() {
@@ -17,11 +17,11 @@ export default function AdminSidebar() {
     <aside className="bg-white w-64 min-h-[calc(100vh-160px)] shadow-lg rounded-xl">
       <nav className="p-4">
         <ul className="space-y-2">
-          {items.map(([icon, label, to]) => (
+          {items.map(({ icon, label, to, end }) => (
             <li key={label}>
               <NavLink
-                end
                 to={to}
+                end={!!end}
                 className={({ isActive }) =>
                   [
                     "flex items-center gap-3 p-3 rounded-lg transition",
