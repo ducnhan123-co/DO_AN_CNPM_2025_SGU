@@ -1,6 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function ParentHeader() {
+  const navigate = useNavigate();
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    navigate("/login", { replace: true });
+  };
+
   return (
     <header
       style={{
@@ -17,20 +25,7 @@ export default function ParentHeader() {
       }}
     >
       <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-        <div
-          style={{
-            background: "#fff",
-            color: "#3575d3",
-            borderRadius: 8,
-            width: 40,
-            height: 40,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: 22,
-            fontWeight: "bold",
-          }}
-        >
+        <div style={{ background: "#fff", color: "#3575d3", borderRadius: 8, width: 40, height: 40, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, fontWeight: "bold" }}>
           <i className="fas fa-bus" />
         </div>
         <div>
@@ -39,24 +34,9 @@ export default function ParentHeader() {
         </div>
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-        <div style={{ textAlign: "right" }}>
-          <div style={{ fontWeight: 600 }}>Nguyễn Văn An</div>
-          <div style={{ fontSize: 13, color: "#e0e7ff" }}>Phụ huynh</div>
-        </div>
-        <div
-          style={{
-            width: 40,
-            height: 40,
-            background: "#4faaff",
-            borderRadius: "50%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: 22,
-          }}
-        >
-          <i className="fas fa-user" />
-        </div>
+        <button onClick={logout} style={{ padding: "8px 12px", borderRadius: 8, border: "1px solid #e0e7ff", color: "#fff", background: "transparent" }}>
+          Đăng xuất
+        </button>
       </div>
     </header>
   );
