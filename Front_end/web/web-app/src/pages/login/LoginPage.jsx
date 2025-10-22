@@ -1,68 +1,56 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./Login.css";
-
-const TOKEN_KEY = "token"; // phải khớp với AuthGuard
-const ROLE_KEY  = "role";  // phải khớp với RoleGuard: "admin" | "parent"
+import { login } from "../../services/AuthService";
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loginFail, setLoginFail] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
-  // nếu người dùng bị chặn ở /admin rồi quay về login, login xong sẽ đưa về lại
-  const from = location.state?.from?.pathname || "/admin";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!username || !password) {
-      alert("Vui lòng nhập đầy đủ thông tin!");
-      return;
-    }
-
     setLoading(true);
-    try {
-      // TODO: gọi API thật. Tạm demo validate local:
-      const ok =
-        (username === "admin" && password === "123456") ||
-        (username === "driver" && password === "123456") ||
-        (username === "parent" && password === "123456");
 
-      if (!ok) {
-        alert(
-          "Thông tin đăng nhập không chính xác!\n\nThử:\n- admin/123456 (Admin)\n- parent/123456 (Phụ huynh)\n- driver/123456 (Tài xế – tạm chưa có khu vực riêng)"
-        );
-        return;
+    try {
+      const response = await login(username, password);
+      setLoading(false);
+
+      if (response) {
+        const pathName = location.pathname;
+        const role = pathName.includes("/admin") ? "admin" : pathName.includes("/driver") ? "driver" : "parent";
+
+        switch (role) {
+          case "admin":
+            if (username == "admin")
+              navigate("/admin");
+            else
+              setLoginFail(true);
+              setLoading(false);
+            break;
+          case "driver":
+            navigate("/driver");
+            break;
+          case "parent":
+            navigate("/parent");
+            break;
+          default:
+            navigate("/");
+        }
       }
 
-      // map role: chỉ có vùng admin & parent, chưa có driver zone thì điều hướng về parent
-      const role =
-        username === "admin" ? "admin" :
-        username === "parent" ? "parent" :
-        // username === "driver"
-        "parent"; // tạm cho tài xế vào khu parent, sau này đổi thành "driver" khi có routes
-
-      // LƯU token/role để Guards đọc được
-      localStorage.setItem(TOKEN_KEY, "dev-token");
-      localStorage.setItem(ROLE_KEY, role);
-      // lưu username để header hiển thị
-      localStorage.setItem("username", username);
-      
-      alert(`Đăng nhập thành công với tài khoản ${role === "admin" ? "Admin" : "Phụ huynh"}!`);
-
-      // Điều hướng sau đăng nhập
-      const fallback = role === "admin" ? "/admin" : "/parent";
-      const target =
-        from.startsWith("/admin") || from.startsWith("/parent") ? from : fallback;
-
-      navigate(target, { replace: true });
-    } finally {
-      setLoading(false); // tắt overlay
+    } catch (error) {
+      setLoading(false);
+      setLoginFail(true);
+      console.error("Lỗi đăng nhập:", error);
+      return;
     }
-  };
+  }
 
   return (
     <div className="gradient-bg min-h-screen flex items-center justify-center p-4 relative overflow-hidden ">
@@ -106,7 +94,9 @@ export default function Login() {
                 required
               />
             </div>
-
+            {loginFail && (
+              <p className="text-purple-700 text-sm text-left">Sai thông tin đăng nhập</p>
+            )}
             {/* Password */}
             <div>
               <label className="block text-white text-sm font-medium mb-2">
@@ -131,7 +121,9 @@ export default function Login() {
                 </button>
               </div>
             </div>
-
+            {loginFail && (
+              <p className="text-purple-700 text-sm text-left">Sai thông tin đăng nhập</p>
+            )}
             {/* Submit */}
             <button
               type="submit"

@@ -1,4 +1,4 @@
-import { API_URL } from "./api";
+import { API_BASE_URL } from "./api";
 import { getToken } from "./LocalStorageService";
 
 export async function getStudents() {
@@ -8,7 +8,7 @@ export async function getStudents() {
       throw new Error("Token not found. User is not authenticated.");
     }
 
-    const response = await fetch(`${API_URL}/student`, {
+    const response = await fetch(`${API_BASE_URL}/student`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { getToken } from "../../services/TokenService.js";
+import { getToken } from "../../services/LocalStorageService";
 
 export default function AuthGuard() {
   const location = useLocation();
