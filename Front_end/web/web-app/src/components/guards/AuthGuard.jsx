@@ -1,8 +1,6 @@
 import React from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-
-const TOKEN_KEY = "token"; // dùng đúng KEY này ở Login
-const getToken = () => localStorage.getItem(TOKEN_KEY);
+import { getToken } from "../../services/TokenService.js";
 
 export default function AuthGuard() {
   const location = useLocation();
