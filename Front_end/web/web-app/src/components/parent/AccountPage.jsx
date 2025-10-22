@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { updateAccount } from "../../services/parentApi";
 
-// ...existing code...
 export default function ParentAccount() {
   const [form, setForm] = useState({ fullName: "Phạm Thu H", phone: "090xxx123", email: "parent@example.com" });
   const [saving, setSaving] = useState(false);
@@ -19,10 +18,10 @@ export default function ParentAccount() {
   // wrapper style để canh giữa
   const wrapper = {
     display: "flex",
-    justifyContent: "center", // canh ngang giữa
-    alignItems: "flex-start", // nếu muốn căn dọc giữa => "center"
+    justifyContent: "center",         // canh ngang giữa
+    alignItems: "flex-start",         // nếu muốn căn dọc giữa => "center"
     padding: "24px",
-    minHeight: "calc(100vh - 96px)", // điều chỉnh nếu header cao/ thấp khác
+    minHeight: "calc(100vh - 96px)",  // điều chỉnh nếu header cao/ thấp khác
     boxSizing: "border-box",
   };
 
@@ -67,7 +66,6 @@ export default function ParentAccount() {
     </div>
   );
 }
-// ...existing code...
 
 const label = { display: "block", marginBottom: 6, fontWeight: 600, color: "#334155" };
 const input = { width: "100%", padding: "10px 12px", borderRadius: 10, border: "1px solid #cbd5e1", outline: "none" };

@@ -34,8 +34,8 @@ function Navbar() {
       <div className="max-w-6xl mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-3">
           {/* logo container: use site-tone translucent background instead of white */}
-          <div className="bg-indigo-900">
-            <img src="/assets/LogoBusApp3.png" alt="logo" className="w-12 h-12" />
+          <div>
+            <img src="/assets/LogoBusApp3.png" alt="logo" className="w-14 h-14" />
           </div>
           <div>
             <h1 className="text-lg font-bold">Busflix</h1>
