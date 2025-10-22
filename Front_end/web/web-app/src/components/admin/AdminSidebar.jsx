@@ -13,24 +13,62 @@ const items = [
 ];
 
 export default function AdminSidebar() {
+  // dễ thay đổi kích thước chữ label
+  const LABEL_SIZE = "14px";
+
+  const asideStyle = {
+    background: "#fff",
+    width: 220,
+    minHeight: "100vh",
+    boxShadow: "2px 0 8px rgba(53,117,211,0.07)",
+    paddingTop: 24,
+    paddingBottom: 24,
+    borderRadius: 8,
+  };
+  const navStyle = { padding: 12 };
+  const ulStyle = {
+    listStyle: "none",
+    padding: "0 12px",
+    margin: 0,
+    display: "flex",
+    flexDirection: "column",
+    gap: 8,
+  };
+
+  const linkBase = {
+    display: "flex",
+    alignItems: "center",
+    gap: 12,
+    padding: "10px 12px",
+    borderRadius: 8,
+    textDecoration: "none",
+    fontWeight: 600,
+  };
+  const activeLink = { background: "#3575d3", color: "#fff" };
+  const inactiveLink = { color: "#374151", background: "transparent" };
+
   return (
-    <aside className="bg-white w-64 min-h-[calc(100vh-160px)] shadow-lg rounded-xl">
-      <nav className="p-4">
-        <ul className="space-y-2">
+    <aside style={asideStyle}>
+      <nav style={navStyle}>
+        <ul style={ulStyle}>
           {items.map(({ icon, label, to, end }) => (
             <li key={label}>
               <NavLink
                 to={to}
                 end={!!end}
-                className={({ isActive }) =>
-                  [
-                    "flex items-center gap-3 p-3 rounded-lg transition",
-                    isActive ? "bg-blue-500 text-white" : "text-gray-700 hover:bg-gray-100",
-                  ].join(" ")
-                }
+                style={({ isActive }) => ({
+                  ...linkBase,
+                  ...(isActive ? activeLink : inactiveLink),
+                })}
               >
                 <i className={icon} />
-                <span>{label}</span>
+                <span style={{
+                  fontSize: LABEL_SIZE,
+                  display: "inline-block",
+                  maxWidth: 140,           // giới hạn chiều rộng để xuống dòng khi cần
+                  whiteSpace: "normal",    // cho phép wrap
+                  wordBreak: "break-word", // xuống dòng an toàn với từ dài
+                }}>{label}</span>
               </NavLink>
             </li>
           ))}

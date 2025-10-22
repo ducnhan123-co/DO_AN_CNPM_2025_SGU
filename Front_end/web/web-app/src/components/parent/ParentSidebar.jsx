@@ -1,114 +1,65 @@
-/*import React from "react";
-import { Link } from "react-router-dom";
-
-export default function ParentSidebar() {
-  return (
-    <aside
-      style={{
-        background: "#fff",
-        width: 220,
-        minHeight: "100vh",
-        boxShadow: "2px 0 8px rgba(53,117,211,0.07)",
-        padding: "24px 0",
-      }}
-    >
-      <nav>
-        <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-          <li style={{ marginBottom: 8 }}>
-            <Link
-              to="/parent/bus"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 10,
-                padding: "12px 24px",
-                borderRadius: 8,
-                background: "#3575d3",
-                color: "#fff",
-                fontWeight: 600,
-                textDecoration: "none",
-              }}
-            >
-              <i className="fas fa-bus" /> Chuyến xe của con
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/parent/notifications"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 10,
-                padding: "12px 24px",
-                borderRadius: 8,
-                color: "#3575d3",
-                fontWeight: 500,
-                textDecoration: "none",
-              }}
-            >
-              <i className="fas fa-bell" /> Thông báo
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/parent/profile"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 10,
-                padding: "12px 24px",
-                borderRadius: 8,
-                color: "#3575d3",
-                fontWeight: 500,
-                textDecoration: "none",
-              }}
-            >
-              <i className="fas fa-user" /> Tài khoản
-            </Link>
-          </li>
-        </ul>
-      </nav>
-    </aside>
-  );
-}*/
-
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-const item = (isActive) =>
-  [
-    "flex items-center gap-3 px-6 py-3 rounded-lg transition",
-    isActive ? "bg-[#3575d3] text-white" : "text-[#3575d3] hover:bg-[#edf2fe]",
-  ].join(" ");
+const items = [
+  { icon: "fas fa-bus",     label: "Chuyến xe của con", to: "/parent/tracking", end: true },
+  { icon: "fas fa-history", label: "Lịch sử chuyến",    to: "/parent/history" },
+  { icon: "fas fa-user",    label: "Tài khoản",          to: "/parent/account" },
+];
 
 export default function ParentSidebar() {
+  // chỉnh nhanh kích thước label
+  const LABEL_SIZE = "14px";
+
+  const asideStyle = {
+    background: "#fff",
+    width: 220,
+    minHeight: "100vh",
+    boxShadow: "2px 0 8px rgba(53,117,211,0.07)",
+    paddingTop: 24,
+    paddingBottom: 24,
+    borderRadius: 8,
+  };
+  const navStyle = { padding: 12 };
+  const ulStyle = { listStyle: "none", padding: "0 12px", margin: 0, display: "flex", flexDirection: "column", gap: 8 };
+
+  const linkBase = {
+    display: "flex",
+    alignItems: "center",
+    gap: 12,
+    padding: "10px 12px",
+    borderRadius: 8,
+    textDecoration: "none",
+    fontWeight: 600,
+  };
+  const activeLink = { background: "#3575d3", color: "#fff" };
+  const inactiveLink = { color: "#374151", background: "transparent" };
+
   return (
-    <aside
-      style={{
-        background: "#fff",
-        width: 220,
-        minHeight: "100vh",
-        boxShadow: "2px 0 8px rgba(53,117,211,0.07)",
-        padding: "24px 0",
-      }}
-    >
-      <nav>
-        <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-          <li style={{ marginBottom: 8 }}>
-            <NavLink to="/parent/tracking" className={({isActive}) => item(isActive)} end>
-              <i className="fas fa-bus" /> <span>Chuyến xe của con</span>
-            </NavLink>
-          </li>
-          <li style={{ marginBottom: 8 }}>
-            <NavLink to="/parent/history" className={({isActive}) => item(isActive)}>
-              <i className="fas fa-history" /> <span>Lịch sử chuyến</span>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/parent/account" className={({isActive}) => item(isActive)}>
-              <i className="fas fa-user" /> <span>Tài khoản</span>
-            </NavLink>
-          </li>
+    <aside style={asideStyle}>
+      <nav style={navStyle}>
+        <ul style={ulStyle}>
+          {items.map(({ icon, label, to, end }) => (
+            <li key={label}>
+              <NavLink
+                to={to}
+                end={!!end}
+                style={({ isActive }) => ({
+                  ...linkBase,
+                  ...(isActive ? activeLink : inactiveLink),
+                })}
+              >
+                <i className={icon} />
+                <span style={{
+                  fontSize: LABEL_SIZE,
+                  display: "inline-block",
+                  maxWidth: 140,
+                  whiteSpace: "normal",
+                  wordBreak: "break-word",
+                }}>{label}</span>
+              </NavLink>
+            </li>
+          ))}
         </ul>
       </nav>
     </aside>
