@@ -24,7 +24,7 @@ import TrackingPage from "./components/admin/TrackingPage.jsx";
 // import MessagesPage from "./components/admin/MessagesPage.jsx";
 
 // ===== Parent layout + pages =====
-import ParentPage from "./components/parent/ParentPage.jsx";   // layout (bên trong phải có <Outlet/>)
+import ParentPage from "./pages/parent/ParentPage.jsx";   // layout (bên trong phải có <Outlet/>)
 import ParentTracking from "./components/parent/TrackingPage.jsx";
 import ParentHistory from "./components/parent/HistoryPage.jsx";
 import ParentAccount from "./components/parent/AccountPage.jsx";

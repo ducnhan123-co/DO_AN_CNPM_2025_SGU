@@ -48,7 +48,9 @@ export default function Login() {
       // LƯU token/role để Guards đọc được
       localStorage.setItem(TOKEN_KEY, "dev-token");
       localStorage.setItem(ROLE_KEY, role);
-
+      // lưu username để header hiển thị
+      localStorage.setItem("username", username);
+      
       alert(`Đăng nhập thành công với tài khoản ${role === "admin" ? "Admin" : "Phụ huynh"}!`);
 
       // Điều hướng sau đăng nhập
@@ -138,6 +140,15 @@ export default function Login() {
             >
               <i className="fas fa-sign-in-alt mr-2"></i>
               {loading ? "Đang đăng nhập..." : "Đăng nhập"}
+            </button>
+
+            {/* Back to Home */}
+            <button
+              type="button"
+              onClick={() => navigate('/')}
+              className="w-full mt-3 bg-white bg-opacity-10 border border-white border-opacity-30 text-white py-3 px-4 rounded-lg font-semibold hover:bg-opacity-20 transition-all"
+            >
+              Quay lại trang chủ
             </button>
           </form>
         </div>

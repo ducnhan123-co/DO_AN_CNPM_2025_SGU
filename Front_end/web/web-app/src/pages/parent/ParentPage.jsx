@@ -1,6 +1,6 @@
 // src/parent/ParentPage.jsx
 import React from "react";
-import ParentLayout from "./ParentLayout.jsx";
+import ParentLayout from "../../components/parent/ParentLayout.jsx";
 import "./Parent.css"; // giữ nếu file này nằm cùng thư mục src/parent
 
 export default function ParentPage() {
