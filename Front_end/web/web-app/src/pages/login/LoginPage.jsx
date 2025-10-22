@@ -29,9 +29,10 @@ export default function Login() {
           case "admin":
             if (username == "admin")
               navigate("/admin");
-            else
+            else {
               setLoginFail(true);
               setLoading(false);
+            }
             break;
           case "driver":
             navigate("/driver");
