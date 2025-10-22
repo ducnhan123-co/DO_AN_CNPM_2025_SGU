@@ -77,7 +77,9 @@ public enum ErrorCode {
     INVALID_END_TIME(1044, "Invalid end time", HttpStatus.BAD_REQUEST),
     INVALID_SCHEDULE_TIME_RANGE(1045, "End time must be after start time", HttpStatus.BAD_REQUEST),
     SCHEDULE_NOT_FOUND(1046, "Schedule not found", HttpStatus.NOT_FOUND),
-    SCHEDULE_EXISTED(1047, "Schedule existed", HttpStatus.CONFLICT);
+    SCHEDULE_EXISTED(1047, "Schedule existed", HttpStatus.CONFLICT),
+    INVALID_GENDER(1048, "Invalid gender", HttpStatus.CONFLICT),
+
     ;
     int code;
     String message;

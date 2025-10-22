@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -96,6 +95,20 @@ public class ParentController {
         return response;
     }
 
+    @GetMapping("/me")
+    public ApiResponse getMyInfo() {
+        ParentResponse data = parentService.getMyInfo();
+
+        ApiResponse response = ApiResponse.<ParentResponse>builder()
+                .success(true)
+                .status(1000)
+                .timestamp(Instant.now())
+                .data(data)
+                .message("Get parent successfully")
+                .build();
+
+        return response;
+    }
 
     @DeleteMapping("/{id}")
     public ApiResponse deleteParent(@PathVariable("id") String id) {

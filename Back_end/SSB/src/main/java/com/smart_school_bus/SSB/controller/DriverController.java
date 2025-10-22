@@ -74,6 +74,19 @@ public class DriverController {
                 .build();
     }
 
+    @GetMapping("/me")
+    public ApiResponse getMyInfo() {
+        DriverResponse data = driverService.getMyInfo();
+
+        return ApiResponse.<DriverResponse>builder()
+                .success(true)
+                .status(1000)
+                .timestamp(Instant.now())
+                .data(data)
+                .message("Get driver successfully")
+                .build();
+    }
+
     @PutMapping("/{id}")
     public ApiResponse updateDriver(@PathVariable String id, @Valid @RequestBody DriverUpdateRequest request) {
         DriverResponse data = driverService.updateDriver(id, request);

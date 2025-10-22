@@ -2,35 +2,73 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 const items = [
-  ["fas fa-tachometer-alt", "Tổng quan", ""],
-  ["fas fa-bus", "Quản lý xe buýt", "buses"],
-  ["fas fa-user-tie", "Quản lý tài xế", "drivers"],
-  ["fas fa-graduation-cap", "Quản lý học sinh", "students"],
-  ["fas fa-route", "Tuyến đường", "routes"],
-  ["fas fa-calendar-alt", "Lịch trình", "schedule"],
-  ["fas fa-map-marker-alt", "Theo dõi thời gian thực", "tracking"],
-  ["fas fa-comments", "Tin nhắn", "messages"],
+  { icon: "fas fa-tachometer-alt", label: "Tổng quan", to: "/admin", end: true },
+  { icon: "fas fa-bus",             label: "Quản lý xe buýt",           to: "/admin/buses" },
+  { icon: "fas fa-user-tie",        label: "Quản lý tài xế",            to: "/admin/drivers" },
+  { icon: "fas fa-graduation-cap",  label: "Quản lý học sinh",          to: "/admin/students" },
+  { icon: "fas fa-route",           label: "Tuyến đường",               to: "/admin/routes" },
+  { icon: "fas fa-calendar-alt",    label: "Lịch trình",                to: "/admin/schedule" },
+  { icon: "fas fa-map-marker-alt",  label: "Theo dõi thời gian thực",   to: "/admin/tracking" },
+  { icon: "fas fa-comments",        label: "Tin nhắn",                  to: "/admin/messages" },
 ];
 
 export default function AdminSidebar() {
+  // dễ thay đổi kích thước chữ label
+  const LABEL_SIZE = "14px";
+
+  const asideStyle = {
+    background: "#fff",
+    width: 220,
+    minHeight: "100vh",
+    boxShadow: "2px 0 8px rgba(53,117,211,0.07)",
+    paddingTop: 24,
+    paddingBottom: 24,
+    borderRadius: 8,
+  };
+  const navStyle = { padding: 12 };
+  const ulStyle = {
+    listStyle: "none",
+    padding: "0 12px",
+    margin: 0,
+    display: "flex",
+    flexDirection: "column",
+    gap: 8,
+  };
+
+  const linkBase = {
+    display: "flex",
+    alignItems: "center",
+    gap: 12,
+    padding: "10px 12px",
+    borderRadius: 8,
+    textDecoration: "none",
+    fontWeight: 600,
+  };
+  const activeLink = { background: "#3575d3", color: "#fff" };
+  const inactiveLink = { color: "#374151", background: "transparent" };
+
   return (
-    <aside className="bg-white w-64 min-h-[calc(100vh-160px)] shadow-lg rounded-xl">
-      <nav className="p-4">
-        <ul className="space-y-2">
-          {items.map(([icon, label, to]) => (
+    <aside style={asideStyle}>
+      <nav style={navStyle}>
+        <ul style={ulStyle}>
+          {items.map(({ icon, label, to, end }) => (
             <li key={label}>
               <NavLink
-                end
                 to={to}
-                className={({ isActive }) =>
-                  [
-                    "flex items-center gap-3 p-3 rounded-lg transition",
-                    isActive ? "bg-blue-500 text-white" : "text-gray-700 hover:bg-gray-100",
-                  ].join(" ")
-                }
+                end={!!end}
+                style={({ isActive }) => ({
+                  ...linkBase,
+                  ...(isActive ? activeLink : inactiveLink),
+                })}
               >
                 <i className={icon} />
-                <span>{label}</span>
+                <span style={{
+                  fontSize: LABEL_SIZE,
+                  display: "inline-block",
+                  maxWidth: 140,           // giới hạn chiều rộng để xuống dòng khi cần
+                  whiteSpace: "normal",    // cho phép wrap
+                  wordBreak: "break-word", // xuống dòng an toàn với từ dài
+                }}>{label}</span>
               </NavLink>
             </li>
           ))}
