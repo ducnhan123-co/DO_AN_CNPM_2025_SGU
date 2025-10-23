@@ -1,10 +1,9 @@
 import { setToken } from "./LocalStorageService";
-import { API_URL } from "./api";
+import { API_BASE_URL } from "./api";
 
 export async function login(username, password) {
-  try {
     const response = await fetch(
-      `${API_URL}/auth/login`,
+      `${API_BASE_URL}/auth/login`,
       {
         method: "POST",
         headers: {
@@ -31,8 +30,4 @@ export async function login(username, password) {
     }
 
     return false;
-  } catch (error) {
-    console.error("Login error:", error);
-    return false;
-  }
 }

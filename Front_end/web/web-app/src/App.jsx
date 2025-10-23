@@ -39,6 +39,8 @@ export default function App() {
       <Routes>
         {/* ===== Public ===== */}
         <Route path="/" element={<HomePage />} />
+        <Route path="/admin/login" element={<Login />} />
+        <Route path="/driver/login" element={<Login />} />
         <Route path="/login" element={<Login />} />
 
         {/* ===== Protected zones ===== */}

@@ -17,11 +17,11 @@ import AdminSidebar from "../components/admin/AdminSidebar.jsx";
 
 export default function AdminPage() {
   return (
-    <div className="min-h-screen flex bg-slate-50">
-      <AdminSidebar />
-      <main className="flex-1 flex flex-col">
-        <AdminHeader />
-        <div className="p-6">
+    <div className="min-h-screen bg-slate-50">
+      <AdminHeader />
+      <main className="flex">
+        <AdminSidebar />
+        <div className="p-6 w-full">
           <Outlet />
         </div>
       </main>

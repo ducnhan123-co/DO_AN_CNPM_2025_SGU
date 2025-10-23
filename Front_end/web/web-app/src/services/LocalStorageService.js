@@ -11,3 +11,11 @@ export const getToken = () => {
 export const removeToken = () => {
   return localStorage.removeItem(KEY_TOKEN);
 };
+
+export const setRole = (role) => {
+  localStorage.setItem("role", role);
+};
+
+export const getRole = () => {
+  return localStorage.getItem("role");
+};

@@ -1,4 +1,4 @@
-import { API_URL } from "./api";
+import { API_BASE_URL } from "./api";
 import { getToken } from "./LocalStorageService";
 
 export async function getRoutes() {
@@ -8,7 +8,7 @@ export async function getRoutes() {
       throw new Error("Token not found. User is not authenticated.");
     }
 
-    const response = await fetch(`${API_URL}/route`, {
+    const response = await fetch(`${API_BASE_URL}/route`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
