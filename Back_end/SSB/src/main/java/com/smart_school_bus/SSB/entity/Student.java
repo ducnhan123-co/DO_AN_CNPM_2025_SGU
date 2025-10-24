@@ -31,6 +31,9 @@ public class Student {
     @Column(name = "date_of_birth", nullable = false)
     LocalDate dob;
 
+    @Column(name = "gender", nullable = false)
+    String gender;
+
     @Column(name = "address", nullable = false)
     String address;
 

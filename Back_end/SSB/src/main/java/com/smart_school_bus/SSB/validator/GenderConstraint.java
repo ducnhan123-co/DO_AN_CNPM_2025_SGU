@@ -1,5 +1,6 @@
 package com.smart_school_bus.SSB.validator;
 
+import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 import org.springframework.validation.annotation.Validated;
 
@@ -10,7 +11,7 @@ import java.lang.annotation.Target;
 
 @Target(value = {ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-@Validated(GenderValidation.class)
+@Constraint(validatedBy = GenderValidation.class)
 public @interface GenderConstraint {
     String message() default "INVALID_GENDER";
 

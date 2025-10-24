@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -50,6 +51,15 @@ public class ParentService {
 
     public ParentResponse getParent(String id) {
         Parent parent = parentRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorCode.PARENT_NOT_FOUND));
+
+        return parentMapper.toResponse(parent);
+    }
+
+    public ParentResponse getMyInfo() {
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        Parent parent = parentRepository.findByUser_UserName(userName)
                 .orElseThrow(() -> new AppException(ErrorCode.PARENT_NOT_FOUND));
 
         return parentMapper.toResponse(parent);

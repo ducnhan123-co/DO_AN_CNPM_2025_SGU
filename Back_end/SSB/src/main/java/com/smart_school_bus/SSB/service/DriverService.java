@@ -19,6 +19,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -74,6 +75,15 @@ public class DriverService {
 
     public DriverResponse getDriver(String id) {
         Driver driver = driverRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorCode.DRIVER_NOT_FOUND));
+
+        return driverMapper.toResponse(driver);
+    }
+
+    public DriverResponse getMyInfo() {
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        Driver driver = driverRepository.findByUser_UserName(userName)
                 .orElseThrow(() -> new AppException(ErrorCode.DRIVER_NOT_FOUND));
 
         return driverMapper.toResponse(driver);

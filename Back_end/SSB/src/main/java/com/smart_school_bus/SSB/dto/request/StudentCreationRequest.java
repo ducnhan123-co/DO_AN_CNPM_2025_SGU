@@ -1,6 +1,7 @@
 package com.smart_school_bus.SSB.dto.request;
 
 import com.smart_school_bus.SSB.validator.DobConstraint;
+import com.smart_school_bus.SSB.validator.GenderConstraint;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -28,6 +29,10 @@ public class StudentCreationRequest {
     @NotNull(message = "INVALID_DOB")
     @DobConstraint(min = 7)
     LocalDate dob;
+
+    @NotNull(message = "INVALID_GENDER")
+    @GenderConstraint
+    String gender;
 
     @NotBlank(message = "INVALID_ADDRESS")
     String address;

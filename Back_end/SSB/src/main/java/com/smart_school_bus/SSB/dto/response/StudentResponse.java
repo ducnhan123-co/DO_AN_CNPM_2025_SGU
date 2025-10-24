@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Data
@@ -16,8 +17,10 @@ public class StudentResponse {
     String firstName;
     String lastName;
     LocalDate dob;
+    String gender;
     String address;
     String classRoom;
     String imageUrl;
+    LocalDateTime createdAt;
     Set<ScheduleWithoutStudentsResponse> schedules;
 }
